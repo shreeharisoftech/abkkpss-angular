@@ -2,13 +2,15 @@ import { Component, HostBinding } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderMenuItemComponent } from './header-menu-item/header-menu-item.component';
 import { AppService } from '../../../core/services/app.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
 	selector: 'app-page-header',
 	standalone: true,
 	imports: [
     CommonModule,
-    HeaderMenuItemComponent
+    HeaderMenuItemComponent,
+    RouterLink
   ],
 	templateUrl: './page-header.component.html',
 	styleUrl: './page-header.component.scss'

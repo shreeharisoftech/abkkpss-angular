@@ -23,10 +23,8 @@ export class AppService {
       "link":"matrimony"
     },
   ];
-
   simpleHttp:SimpleHttp = new SimpleHttp();
-  constructor(httpClient:HttpClient) {
-    SimpleHttp.initialize(httpClient);
+  constructor() {
   }
 
 }
