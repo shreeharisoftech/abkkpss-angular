@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="h-full" data-theme="true" data-theme-mode="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>abkkpss</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="styles.css" rel="stylesheet"/>
+  <link href="assets/fonts/fontawesome-pro/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="antialiased flex h-full demo1 header-fixed bg-[#fefefe] dark:bg-coal-500">
+	<script>
+	const defaultThemeMode = 'light';
+		let themeMode;
+		if ( document.documentElement ) {
+			if ( localStorage.getItem('theme')) {
+					themeMode = localStorage.getItem('theme');
+			} else if ( document.documentElement.hasAttribute('data-theme-mode')) {
+				themeMode = document.documentElement.getAttribute('data-theme-mode');
+			} else {
+				themeMode = defaultThemeMode;
+			}
+
+			if (themeMode === 'system') {
+				themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			}
+
+			document.documentElement.classList.add(themeMode);
+		}
+	</script>
+  <app-root></app-root>
+</body>
+</html>

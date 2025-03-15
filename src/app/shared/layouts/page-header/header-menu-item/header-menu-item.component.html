@@ -1,0 +1,27 @@
+<div class="menu-item"
+  [attr.data-menu-item-overflow]="depth==0?'true':''"
+  [attr.data-menu-item-offset]="depth==0?'0,0|lg:-20px, 0':''"
+  [attr.data-menu-item-placement]="depth==0?'bottom-start':'right-start'"
+  [attr.data-menu-item-toggle]="children.length>0?'dropdown':''"
+  [attr.data-menu-item-trigger]="children.length>0?'click|hover':''"
+  style="height:100%;">
+  <a class="menu-link text-sm text-gray-700 font-medium menu-link-hover:text-primary menu-item-active:text-gray-900 menu-item-show:text-primary menu-item-here:text-gray-900 menu-item-active:font-semibold menu-item-here:font-semibold"
+  [routerLink]="menuItem.link" routerLinkActive="router-link-active"
+  >
+    <span class="menu-icon me-2" *ngIf="menuItem.iconClass">
+    <i [class]="menuItem.iconClass"></i>
+   </span>
+    <span class="menu-title text-nowrap">
+      {{title}}
+    </span>
+    <span class="menu-arrow" *ngIf="depth>0">
+      <i class="ki-filled ki-right text-3xs" *ngIf="children.length>0">
+      </i>
+    </span>
+  </a>
+  <div class="menu-dropdown menu-default py-2.5 w-full max-w-[220px]" *ngIf="children.length>0">
+    <ng-container *ngFor="let item of children">
+      <app-header-menu-item [depth]="depth+1" [menuItem]="item" />
+    </ng-container>
+  </div>
+</div>

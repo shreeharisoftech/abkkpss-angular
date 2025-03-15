@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+// Main style
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+// @import "../node_modules/tailwindcss/base.css";
+// @import "../node_modules/tailwindcss/components";
+// @import "../node_modules/tailwindcss/utilities";
+
+/* Demos */
+@import "./assets/css/theme.css";
+
+// Keenicons
+@import "./theme/vendors/keenicons/duotone/style.css";
+@import "./theme/vendors/keenicons/filled/style.css";
+@import "./theme/vendors/keenicons/outline/style.css";
+@import "./theme/vendors/keenicons/solid/style.css";
+
+.card-header, .card-footer{
+  height:40px;
+  min-height: 40px;
+  padding: 5px;
+}
+.hover-grab-indicator{
+  cursor: grab;
+}
+.hover-grab-indicator,.grabbed{
+  cursor: grab;
+}
+.input{
+  height:2rem;
+}
+.input-key-value-container{
+  display: block;
+    width: 100%;
+    appearance: none;
+    box-shadow: none;
+    outline: none;
+    border-radius: 0.375rem;
+    border: 1px solid var(--tw-gray-300);
+    color: var(--tw-gray-700);
+ }

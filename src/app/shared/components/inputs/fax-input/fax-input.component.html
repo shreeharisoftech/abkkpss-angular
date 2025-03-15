@@ -1,0 +1,42 @@
+<div class="input-key-value-container min-w-full p-2" style="height:auto;display: block;">
+  <simple-input-key-value-pair class="min-w-full" dataField="phone_details" [record]="record" #keyValuePairs
+    class="d-flex align-items-center flex-wrap">
+    <div simple-repeating-items #simpleRepeatingItems cdkDropList
+      (cdkDropListDropped)="simpleRepeatingItems.updateItemIndex($event.previousIndex, $event.currentIndex)">
+      <ng-template let-item let-params="params">
+        <table class="min-w-full" cdkDrag>
+          <tr>
+            <td class="pe-1" style="width:30px">
+              <i [class]="'fa fa-grip-dots hover-grab-indicator'+(dragging?' dragging':'')" cdkDragHandle
+                (mousedown)="dragging=true;" (mouseup)="dragging=false;"></i>
+            </td>
+            <td class="pe-1" style="width:30px">
+              {{params['index']+1|leadingZero}}
+            </td>
+            <td class="pe-1" style="width:50%;">
+              <simple-input-select dataField="label" class="input w-full py-1" [bindValue]="'value'"
+                [bindLabel]="'label'" [options]="labelOptions" [record]="item" [placeholder]="'Select Fax Label'"
+                [simpleDatabaseTable]="simpleDatabaseTable" [(ngModel)]="item['label']" [label]="'label'"
+                [name]="'label'" [disabled]="disabled" />
+            </td>
+            <td class="ps-1" style="width:50%;">
+              <simple-input class="input w-full" [record]="item" dataField="value" [placeholder]="'Enter Fax Value'"
+                [simpleDatabaseTable]="simpleDatabaseTable" [(ngModel)]="item['value']" [label]="'value'"
+                [name]="'value'" [readonly]="readonly" />
+            </td>
+            <td class="text-center" style="min-width:30px;">
+              <div class="btn btn-sm btn-icon btn-clear btn-light" (click)="simpleRepeatingItems.removeItem(item)">
+                <i class="fal fa-trash">
+                </i>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <hr class="my-1" />
+      </ng-template>
+    </div>
+    <button type="button" class="btn btn-xs btn-secondary" sim-repeating-item-append>
+      <i class="fa fa-plus" style="font-size:inherit;"></i> Add New
+    </button>
+  </simple-input-key-value-pair>
+</div>

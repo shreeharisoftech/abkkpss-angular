@@ -1,0 +1,93 @@
+<div class="input-key-value-container min-w-full p-2" style="height:auto;display: block;">
+  <simple-input-key-value-pair class="min-w-full" dataField="phone_details" [record]="record" #keyValuePairs
+    class="d-flex align-items-center flex-wrap">
+    <table class="min-w-full">
+      <tbody simple-repeating-items #simpleRepeatingItems cdkDropList
+        (cdkDropListDropped)="simpleRepeatingItems.updateItemIndex($event.previousIndex, $event.currentIndex)">
+        <ng-template let-item let-params="params">
+          <tr cdkDrag>
+            <td class="pe-1" style="width:30px">
+              <i [class]="'fa fa-grip-dots hover-grab-indicator'+(dragging?' dragging':'')" cdkDragHandle
+                (mousedown)="dragging=true;" (mouseup)="dragging=false;"></i>
+            </td>
+            <td class="pe-1" style="width:30px">
+              {{params['index']+1|leadingZero}}
+            </td>
+            <td class="pe-1">
+              <table class="min-w-full">
+                <tr>
+                  <td style="width:25%">
+                    <simple-input class="input w-full" [record]="item" dataField="label" [placeholder]="'Address Label'"
+                      [simpleDatabaseTable]="simpleDatabaseTable" [(ngModel)]="item['label']" [label]="'label'"
+                      [name]="'label'" [readonly]="readonly" />
+                  </td>
+                  <td>
+                    <table class="min-w-full">
+                      <tr>
+                        <td style="width:50%">
+                          <simple-input class="input w-full" [record]="item" dataField="address_line_1"
+                            [placeholder]="'Enter Address Line 1'" [simpleDatabaseTable]="simpleDatabaseTable"
+                            [(ngModel)]="item['address_line_1']" [label]="'address_line_1'" [name]="'address_line_1'"
+                            [readonly]="readonly" />
+                        </td>
+                        <td>
+                          <simple-input class="input w-full" [record]="item" dataField="address_line_2"
+                            [placeholder]="'Enter Address Line 2'" [simpleDatabaseTable]="simpleDatabaseTable"
+                            [(ngModel)]="item['address_line_2']" [label]="'address_line_2'" [name]="'address_line_2'"
+                            [readonly]="readonly" />
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <table class="min-w-full">
+                <tr>
+                  <td style="width:25%">
+                    <simple-input class="input w-full" [record]="item" dataField="postal_code"
+                      [placeholder]="'Enter Postal Code'" [simpleDatabaseTable]="simpleDatabaseTable"
+                      [(ngModel)]="item['postal_code']" [label]="'postal_code'" [name]="'postal_code'"
+                      [readonly]="readonly" />
+                  </td>
+                  <td style="width:25%">
+                    <simple-input class="input w-full" [record]="item" dataField="city_name"
+                      [placeholder]="'Enter City'" [simpleDatabaseTable]="simpleDatabaseTable"
+                      [(ngModel)]="item['city_name']" [label]="'city_name'" [name]="'city_name'"
+                      [readonly]="readonly" />
+                  </td>
+                  <td style="width:25%">
+                    <simple-input class="input w-full" [record]="item" dataField="state_name"
+                      [placeholder]="'Enter State'" [simpleDatabaseTable]="simpleDatabaseTable"
+                      [(ngModel)]="item['state_name']" [label]="'state_name'" [name]="'state_name'"
+                      [readonly]="readonly" />
+                  </td>
+                  <td>
+                    <simple-input class="input w-full" [record]="item" dataField="country_name"
+                      [placeholder]="'Enter Country'" [simpleDatabaseTable]="simpleDatabaseTable"
+                      [(ngModel)]="item['country_name']" [label]="'country_name'" [name]="'country_name'"
+                      [readonly]="readonly" />
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td class="text-center" style="min-width:30px;">
+              <div class="btn btn-sm btn-icon btn-clear btn-light" (click)="simpleRepeatingItems.removeItem(item)">
+                <i class="fal fa-trash">
+                </i>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <button type="button" class="btn btn-xs btn-secondary" sim-repeating-item-append>
+              <i class="fa fa-plus" style="font-size:inherit;"></i> Add New
+            </button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </simple-input-key-value-pair>
+</div>

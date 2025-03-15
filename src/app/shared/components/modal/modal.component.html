@@ -1,0 +1,30 @@
+<div *ngIf="isOpen">
+  <div class="modal-backdrop transition-all duration-300" style="z-index: 89;"></div>
+  <div class="modal open" data-modal="true" style="z-index: 90;display: block;">
+    <div class="modal-content max-w-[600px] top-[1%]">
+      <div class="modal-header py-1 ps-4 pe-2">
+        <h3 class="modal-title">
+          {{title}}
+        </h3>
+        <button type="button" class="btn btn-sm btn-icon btn-light btn-clear shrink-0" data-modal-dismiss="true"
+          (click)="toggle()">
+          <i class="ki-filled ki-cross">
+          </i>
+        </button>
+      </div>
+      <div class="modal-body p-0 max-h-[90vh]" style="height: 80vh;overflow: auto;">
+        <ng-content />
+      </div>
+    <div class="modal-footer py-2 ps-4 pe-2">
+      <h3 class="modal-title">
+        {{title}}
+      </h3>
+      <button type="button" class="btn btn-sm btn-icon btn-light btn-clear shrink-0" data-modal-dismiss="true"
+        (click)="toggle()">
+        <i class="ki-filled ki-cross">
+        </i>
+      </button>
+    </div>
+    </div>
+  </div>
+</div>
