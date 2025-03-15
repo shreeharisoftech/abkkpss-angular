@@ -1,44 +1,44 @@
 <div class="grid lg:grid-cols-2 grow" style="height: 100%;">
   <div class="flex justify-center items-center p-8 lg:p-10 order-1 lg:order-1">
    <div class="card max-w-[370px] w-full">
-    <form action="#" class="card-body flex flex-col gap-5 p-10" id="sign_in_form" method="get">
+    <form #form="ngForm" class="card-body flex flex-col gap-5 p-10" (ngSubmit)="handleSubmit(form)">
      <div class="text-center mb-2.5">
       <h3 class="text-lg font-medium text-gray-900 leading-none mb-2.5">
        Log in
       </h3>
      </div>
      <div class="flex flex-col gap-1">
-      <label class="form-label font-normal text-gray-900">
-       Mobile Number
-      </label>
-      <input class="input" placeholder="917XXXXXXX" type="text" value=""/>
+      <simple-database-input placeholder="917XXXXXXX" [record]="record" [dataField]="TblUsers.userMobile" [name]="TblUsers.userMobile"
+        [(ngModel)]="record[TblUsers.userMobile]" [formSubmitted]="isFormSubmitted" [simpleDatabaseTable]="Tables.users"
+        [value]="record[TblUsers.userMobile]" (onInputInit)="handleInputInit($event)"
+        (onInputViewInit)="handleInputViewInit($event)" [required]="true"/>
      </div>
      <div class="flex flex-col gap-1">
-      <div class="flex items-center justify-between gap-1">
-       <label class="form-label font-normal text-gray-900">
-        Password
-       </label>
-       <a class="text-2sm link shrink-0">
-        Forgot Password?
-       </a>
-      </div>
-      <div class="input" data-toggle-password="true">
-       <input name="user_password" placeholder="Enter Password" type="password" value=""/>
-       <button class="btn btn-icon" data-toggle-password-trigger="true" type="button">
+      <div data-toggle-password="true">
+        <simple-database-input class="input" placeholder="Enter Password" [record]="record" [dataField]="TblUsers.userPassword" [name]="TblUsers.userPassword"
+        [(ngModel)]="record[TblUsers.userPassword]" [formSubmitted]="isFormSubmitted" [simpleDatabaseTable]="Tables.users"
+        [value]="record[TblUsers.userPassword]" (onInputInit)="handleInputInit($event)"
+        (onInputViewInit)="handleInputViewInit($event)" [required]="true"/>
+       <!-- <button class="btn btn-icon" data-toggle-password-trigger="true" type="button">
         <i class="ki-filled ki-eye text-gray-500 toggle-password-active:hidden">
         </i>
         <i class="ki-filled ki-eye-slash text-gray-500 hidden toggle-password-active:block">
         </i>
-       </button>
+       </button> -->
       </div>
      </div>
-     <label class="checkbox-group">
+     <div class="flex items-center justify-between gap-1">
+      <a class="text-2sm link shrink-0">
+       Forgot Password?
+      </a>
+     </div>
+     <!-- <label class="checkbox-group">
       <input class="checkbox checkbox-sm" name="check" type="checkbox" value="1"/>
       <span class="checkbox-label">
        Remember me
       </span>
-     </label>
-     <button class="btn btn-primary flex justify-center grow">
+     </label> -->
+     <button type="submit" class="btn btn-primary flex justify-center grow">
       Log In
      </button>
     </form>
@@ -51,12 +51,15 @@
     </a>
     <div class="flex flex-col gap-3">
      <h3 class="text-2xl font-semibold text-gray-900">
-      Portal for ABKKPSS Members only
+      Portal for ABKKPSS Members!
      </h3>
      <div class="text-base font-medium text-gray-600">
-      This portal is meant for ABKKPSS members. Login using mobile number and password.
+      This portal is meant for ABKKPSS members. Login using mobile number and password. If you don't have login password, please contact your zone admin.
      </div>
+     <ng-container *ngFor="let member of adminMembers">
+      <div>{{member['member_name']}}</div>
+     </ng-container>
     </div>
    </div>
   </div>
- </div>
+</div>

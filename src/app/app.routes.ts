@@ -25,6 +25,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'directory',
+    loadChildren: () =>
+      import('./modules/directory/directory.module').then(
+        (m) => m.DirectoryModule
+      ),
+  },
+  {
     path: 'firms',
     loadChildren: () =>
       import('./modules/firms/firms.module').then(

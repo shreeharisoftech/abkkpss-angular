@@ -1,5 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { SimpleBaseClass, SimpleHttp, SimplifyAngularModule, SimplifyService } from '@satvasoftech/simplify-angular';
+import { SimpleBaseClass, SimpleHttp, SimplifyService } from '@satvasoftech/simplify-angular';
 import { AppService } from '../../../core/services/app.service';
 @Component({
   selector: 'app-base-component',

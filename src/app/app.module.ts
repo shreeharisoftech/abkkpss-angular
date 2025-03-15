@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PageHeaderComponent } from './shared/layouts/page-header/page-header.component';
 import { routes } from './app.routes';
+import { SimplifyAngularModule } from '@satvasoftech/simplify-angular';
 @NgModule({
   declarations: [AppComponent],
   bootstrap: [AppComponent],
@@ -21,6 +22,7 @@ import { routes } from './app.routes';
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
+    SimplifyAngularModule,
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
@@ -31,7 +33,7 @@ import { routes } from './app.routes';
       {
         provide: ErrorHandler,
       },
-      provideHttpClient(withInterceptorsFromDi()),
+      // provideHttpClient(withInterceptorsFromDi()),
     ]
 })
 export class AppModule { }

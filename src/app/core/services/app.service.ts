@@ -8,6 +8,11 @@ import { SimpleHttp } from '@satvasoftech/simplify-angular';
 export class AppService {
   static appMenu:any[] = [
     {
+      "iconClass":"far fa-address-book",
+      "label":"Directory",
+      "link":"directory"
+    },
+    {
       "iconClass":"far fa-users",
       "label":"Members",
       "link":"members"
