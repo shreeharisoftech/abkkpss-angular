@@ -10,7 +10,6 @@
   },
   "private": true,
   "dependencies": {
-
     "@angular/animations": "^19.0.5",
     "@angular/cdk": "^17.0.0",
     "@angular/common": "^19.0.5",
@@ -45,6 +44,8 @@
     "postcss": "^8.4.39",
     "sass": "^1.77.6",
     "tailwindcss": "^3.4.4",
-    "typescript": "~5.4.2"
+    "typescript": "~5.5.4",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }
