@@ -1,0 +1,54 @@
+/* filepath: d:\ShreeHari Softech\Projects\abkkpss-angular\src\app\modules\members\member-list\member-list.component.scss */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#scrollContainer {
+  height: 100%; /* Or use 92vh if that worked before */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+    background-color: #f9fafb; /* Tailwind's bg-gray-50 */
+    border: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
+    color: #111827; /* Tailwind's text-gray-900 */
+    font-size: 0.875rem; /* Tailwind's text-sm */
+    border-radius: 0.5rem; /* Tailwind's rounded-lg */
+    padding: 0.625rem; /* Tailwind's p-2.5 */
+    width: 100%; /* Tailwind's w-full */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+    &:focus {
+      outline: none;
+      border-color: #2563eb; /* Tailwind's focus:border-primary-600 */
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3); /* Tailwind's focus:ring-primary-600 */
+    }
+  
+    &::placeholder {
+      color: #bbbdc2; /* Tailwind's placeholder-gray-400 */
+    }
+  
+    /* Dark mode styles */
+    @media (prefers-color-scheme: dark) {
+      background-color: #374151; /* Tailwind's dark:bg-gray-700 */
+      border-color: #4b5563; /* Tailwind's dark:border-gray-600 */
+      color: #f9fafb; /* Tailwind's dark:text-white */
+      &::placeholder {
+        color: #6b7280; /* Tailwind's dark:placeholder-gray-400 */
+      }
+      &:focus {
+        border-color: #3b82f6; /* Tailwind's dark:focus:border-primary-500 */
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* Tailwind's dark:focus:ring-primary-500 */
+      }
+    }
+  }
+
+.scrollable-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100%;
+}

@@ -1,0 +1,165 @@
+<div class="scrollable-content">
+    <div #scrollContainer class="dark:bg-gray-100 p-4" style="height: 100%; overflow-y: auto;">
+    <!-- Header -->
+    <div class="p-2 flex justify-between">
+        <h1 class="text-3xl dark:text-white">Members</h1>
+        <button id="updateProductButton" data-modal-target="updateProductModal" data-modal-toggle="updateProductModal"
+        class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800"
+        type="button" (click)="openModal()">
+        Filter Member
+        </button>
+    </div>
+
+    <!-- Search Filter -->
+    <div id="updateProductModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden">
+        <div class="relative p-4 w-full max-w-4xl h-auto">
+        <!-- Modal content -->
+        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-200 sm:p-5">
+            <!-- Modal header -->
+            <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                Filter Member
+            </h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" (click)="closeModal()">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            </div>
+            <!-- Modal body -->
+            <form>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Member Id -->
+                <div>
+                <label for="member_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Member Id</label>
+                <input type="text" id="member_id" class="form-input" placeholder="Member Id" [(ngModel)]="memberId" name="memberId" />
+                </div>
+                <!-- First Name -->
+                <div>
+                <label for="member_fname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                <input type="text" id="member_fname" class="form-input" placeholder="First Name" [(ngModel)]="memberFname" name="memberFname" />
+                </div>
+                <!-- Middle Name -->
+                <div>
+                <label for="member_mname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Middle Name</label>
+                <input type="text" id="member_mname" class="form-input" placeholder="Middle Name" [(ngModel)]="memberMname" name="memberMname" />
+                </div>
+                <!-- Last Name -->
+                <div>
+                <label for="member_lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                <input type="text" id="member_lname" class="form-input" placeholder="Last Name" [(ngModel)]="memberLname" name="memberLname" />
+                </div>
+                <!-- Phone Number -->
+                <div>
+                <label for="member_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone No</label>
+                <input type="text" id="member_phone" class="form-input" placeholder="Phone Number" [(ngModel)]="memberPhone" name="memberPhone" />
+                </div>
+                <!-- Marital Status -->
+                <div>
+                <label for="maritial_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marital Status</label>
+                <select id="maritial_status" class="form-input" [(ngModel)]="maritialStatus" name="maritialStatus">
+                    <option value="">Select Marital Status</option>
+                    <option value="0">Single</option>
+                    <option value="1">Engaged</option>
+                    <option value="2">Married</option>
+                </select>
+                </div>
+                <!-- Blood Group -->
+                <div>
+                <label for="blood_group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blood Group</label>
+                <select id="blood_group" class="form-input" [(ngModel)]="bloodGroup" name="bloodGroup">
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+                </div>
+                <!-- Zone -->
+                <div>
+                <label for="zone_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zone</label>
+                <select id="zone_id" class="form-input" [(ngModel)]="zoneId" name="zoneId">
+                    <option value="">Select Zone</option>
+                    <option value="1">01 - Ahmedabad</option>
+                    <option value="2">02 - Nadiad</option>
+                    <option value="3">03 - Vadodara-Bharuch</option>
+                    <option value="4">04 - South Gujarat</option>
+                    <option value="5">05 - North Gujarat</option>
+                    <option value="6">06 - Saurashtra</option>
+                    <option value="7">07 - Indore</option>
+                    <option value="9">08 - South India</option>
+                    <option value="10">09 - Maharashtra</option>
+                    <option value="11">10 - East Kutch</option>
+                    <option value="12">11 - West Kutch</option>
+                </select>
+                </div>
+                <!-- City -->
+                <div>
+                <label for="city_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                <input type="text" id="city_name" class="form-input" placeholder="Select City" [(ngModel)]="cityName" name="cityName" />
+                </div>
+                <!-- Native -->
+                <div>
+                <label for="member_native" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Native</label>
+                <input type="text" id="member_native" class="form-input" placeholder="Select Native" [(ngModel)]="memberNative" name="memberNative" />
+                </div>
+                <!-- Gender -->
+                <div>
+                <label for="member_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                <select id="member_gender" class="form-input" [(ngModel)]="memberGender" name="memberGender">
+                    <option value="">Select Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+                </div>
+                <!-- Life Status -->
+                <div>
+                <label for="alive_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Life Status</label>
+                <select id="alive_status" class="form-input" [(ngModel)]="aliveStatus" name="aliveStatus">
+                    <option value="">Select Member Life Status</option>
+                    <option value="0">હયાત</option>
+                    <option value="-1">અક્ષરવાસી</option>
+                </select>
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button type="submit" class="btn bg-navy text-white hover:bg-blue-700 px-4 py-2 rounded-lg" (click)="applyFilter()">
+                <i class="fa fa-filter"></i> Apply Filter
+                </button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+    <!-- Grid Data -->
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+        @for (item of membersList; track $index) {
+        <div class="m-3">
+        <app-memberlist-card [memberImageUrl]="" [memberName]="item[TblMemberDetails.memberName]" [memberNative]="item.native"
+            [memberCurrent]="item.city" [redirectUrl]="getRedirectUrl(item.id)"></app-memberlist-card>
+        </div>
+        }
+    </div>
+
+    <!-- Loader -->
+    <div  id="loader" class="text-center">
+        <div role="status" class="flex justify-center items-center">
+        <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+            fill="currentColor" />
+            <path
+            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+            fill="currentFill" />
+        </svg>
+        <div class="w-3"></div>
+        <span class="text-gray-900 dark:text-white">Loading...</span>
+        </div>
+    </div>
+    </div>
+</div>

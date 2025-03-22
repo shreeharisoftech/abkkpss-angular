@@ -2,7 +2,7 @@
 
 module.exports = {
 	content: [
-		"./src/**/*.{html,ts,js}",
+		"./src/**/*.{html,ts,js,scss}",
 	],
 	safelist: [
 		'demo1',

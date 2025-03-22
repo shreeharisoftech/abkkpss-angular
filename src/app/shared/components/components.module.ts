@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { AppDatabaseInputTemplateComponent } from './app-database-input-template/app-database-input-template.component';
 import { SimplifyAngularModule } from '@satvasoftech/simplify-angular';
+import { MemberlistCardComponent } from './memberlist-card/memberlist-card.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SimplifyAngularModule } from '@satvasoftech/simplify-angular';
     FormsModule,
     ReactiveFormsModule,
     SimplifyAngularModule,
+    MemberlistCardComponent
   ]
 })
 export class ComponentsModule { }

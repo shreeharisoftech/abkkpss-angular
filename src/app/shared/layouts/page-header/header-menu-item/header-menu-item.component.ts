@@ -29,4 +29,16 @@ export class HeaderMenuItemComponent {
       }
     }
   }
+
+  changeMenuActiveStatus(selectedMenu:string){
+    document.querySelectorAll(".menu-item.divlink").forEach(element => {
+      let menuTitleText = element.querySelector(".menu-title")?.textContent.trim();
+      if(menuTitleText == selectedMenu){
+          element.classList.add("active");
+          return;
+      }
+      element.classList.remove("active");
+      console.log(menuTitleText);
+  });
+  }
 }

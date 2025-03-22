@@ -28,6 +28,7 @@ export class AppService {
       "link":"matrimony"
     },
   ];
+  fetch_count = 50;
   simpleHttp:SimpleHttp = new SimpleHttp();
   constructor() {
   }

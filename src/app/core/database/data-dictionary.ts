@@ -112,6 +112,7 @@ export enum TblMemberDetails {
 	memberGender ="member_gender",
 	memberGotra ="member_gotra",
 	memberId ="member_id",
+	memberName = "member_name",
 	memberLname ="member_lname",
 	memberMname ="member_mname",
 	memberNative ="member_native",
