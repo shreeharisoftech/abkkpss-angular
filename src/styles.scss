@@ -42,3 +42,15 @@
     border: 1px solid var(--tw-gray-300);
     color: var(--tw-gray-700);
  }
+ simple-input{
+  width: 100%;
+ }
+.input-error input{
+  border:solid 1px var(--tw-danger)!important;
+  border-bottom-left-radius:0px ;
+  border-bottom-right-radius:0px ;
+}
+.input-error-message{
+  border-bottom-left-radius:6px ;
+  border-bottom-right-radius:6px ;
+}
