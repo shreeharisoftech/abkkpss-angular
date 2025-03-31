@@ -20,7 +20,6 @@ export class HeaderMenuItemComponent {
 
   ngOnInit(){
     if(this.menuItem){
-      console.log(this.menuItem);
       if(this.menuItem["label"]){
         this.title = this.menuItem["label"];
       }
@@ -38,7 +37,6 @@ export class HeaderMenuItemComponent {
           return;
       }
       element.classList.remove("active");
-      console.log(menuTitleText);
   });
   }
 }

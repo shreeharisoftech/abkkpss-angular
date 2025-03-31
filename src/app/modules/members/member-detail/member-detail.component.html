@@ -1,1 +1,166 @@
-<p>member-detail works!</p>
+<div class="custom-tab-group p-4 h-full">
+    <mat-tab-group #tabGroup [color]="'accent'" [backgroundColor]="'primary'" class="dark:text-white">
+        <mat-tab label="Profile"> 
+          <ng-template matTabLabel>
+            <span class="custom-tab-button dark:text-white">Profile</span>
+          </ng-template>
+          <div class="flex flex-col lg:flex-row gap-4 p-4">
+            <div class="p-6 mt-7 bg-white dark:bg-gray-200 shadow-lg rounded-lg">
+                <div class="flex justify-center items-center min-w-60">
+                    <img [src]="getProfilePicPath(memberDetail[ViewMemberDetails.memberProfilePic], memberDetail[ViewMemberDetails.memberGender])" 
+                         [alt]="memberDetail[ViewMemberDetails.memberName]" 
+                         class="w-40 h-40 rounded-full border-4"
+                         [ngClass]="{'border-green-500': memberDetail[ViewMemberDetails.isLifetime], 'border-red-500': !memberDetail[ViewMemberDetails.isLifetime]}">
+                </div>
+            </div>
+            <div class="p-6 mt-7 bg-white dark:bg-gray-200 shadow-lg rounded-lg w-full">
+                <section id="profile-info">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                        <div>
+                            <h5 class="card-title-text">Name:</h5>
+                            <div id="membername" class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberName]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Parent:</h5>
+                            <div class="card-data-text" href="member_profile?member_id=0">{{this.memberDetail[ViewMemberDetails.parentName]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-7">
+                        <div>
+                            <h5 class="card-title-text">Gotra:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberGotra]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Native Place:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberNative]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Phone:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberPhone]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Qualification:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberQualification]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
+                        <div>
+                            <h5 class="card-title-text">Gender:</h5>
+                            <div class="card-data-text"> {{this.memberDetail[ViewMemberDetails.memberGender]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Birth Date:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberDob]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Blood Group:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.bloodGroup]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Marital Status:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.maritialStatus]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                        <div>
+                            <h5 class="card-title-text">Spouse:</h5>
+                            <a class="card-data-text" (click)="redirectToSpouseProfile(memberDetail[ViewMemberDetails.spouseId] ?? 0)">{{memberDetail[ViewMemberDetails.spouseName]}}</a>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Engagement Date:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.engagementDate]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Marriage Date:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.marraigeDate]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                        <div class="md:col-span-2">
+                            <h5 class="card-title-text">Address:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberAddress]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Postal Code:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.postalCode]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
+                        <div>
+                            <h5 class="card-title-text">Zone:</h5>
+                            <div class="card-data-text">{{this.memberDetail.zone_name}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">City:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.cityName]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">State:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.stateName]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Country:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.countryName]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        <div>
+                            <h5 class="card-title-text">Member ID:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.memberId]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Family ID:</h5>
+                            <div class="card-data-text">{{this.memberDetail[ViewMemberDetails.familyIndex]}}</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+          </div>
+
+        </mat-tab>
+        <mat-tab label="Member Family"> 
+          <ng-template matTabLabel>
+            <span class="custom-tab-button dark:text-white">Member Family</span>
+          </ng-template>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            @for (item of familyMembers; track $index) {
+              <div class="m-3">
+                  <!-- <app-member-card [memberImageUrl]="" [memberName]="item.name" [memberNative]="item.native"
+                      [memberCurrent]="item.city" [redirectUrl]="getRedirectUrl(item.id)" (click)="focusFirstTab(item.id ?? 0)"></app-member-card> -->
+                <app-memberlist-card [memberImageUrl]="getProfilePicPath(item[ViewMemberDetails.memberProfilePic], item[ViewMemberDetails.memberGender])" [memberName]="item[ViewMemberDetails.memberName]" [memberNative]="item[ViewMemberDetails.memberNative]"
+                      [memberCurrent]="item[ViewMemberDetails.cityName]" [redirectUrl]="getRedirectUrl(item[ViewMemberDetails.memberId])" (click)="focusFirstTab(item.id ?? 0)"></app-memberlist-card>
+              </div>
+            }
+        </div>
+        </mat-tab>
+        <mat-tab label="Family Tree"> 
+          <ng-template matTabLabel>
+            <span class="custom-tab-button dark:text-white">Member Tree</span>
+          </ng-template>
+          <div #treeElement>
+
+          </div>
+          <!-- <div class="row">
+            <div class="col-12">
+              <table class="float-right">
+                <tr>
+                  <td>Ancestor Depth : </td>
+                  <td>
+                    <input type="number" id="txtAncestorDepth" step="0" class="form-control form-control-sm" value="3" onchange="getMemberFamilyTree()">
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div> -->
+          <div id="familyTree"></div>
+          <div id="bio"></div>
+        </mat-tab>
+      </mat-tab-group>      
+</div>

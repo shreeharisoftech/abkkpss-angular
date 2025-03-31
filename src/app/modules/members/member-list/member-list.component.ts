@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AppBaseComponent } from '../../../shared/base-parents/app-base/app-base.component';
 import { SimpleHttp, SimplifyService } from '@satvasoftech/simplify-angular';
 import { ApiUrls } from '../../../core/configs/api-urls';
-import { TblMemberDetails } from '../../../core/database/data-dictionary';
+import { ViewMemberDetails } from '../../../core/database/data-dictionary';
 import { Subject } from 'rxjs';
 import { MemberlistCardComponent } from '../../../shared/components/memberlist-card/memberlist-card.component';
 import { AppService } from '../../../core/services/app.service';
@@ -20,7 +20,7 @@ export class MemberListComponent extends AppBaseComponent implements OnInit, Aft
   membersList:any[] = [];
   startIndex: number = 1;
   calledApi: boolean = false;
-  TblMemberDetails = TblMemberDetails;
+  ViewMembersDetails = ViewMemberDetails;
   reachedEnd: boolean = false;
 
   memberId: string = '';
@@ -89,7 +89,7 @@ export class MemberListComponent extends AppBaseComponent implements OnInit, Aft
     formDataObj.append('member_gender', this.memberGender);
     formDataObj.append('alive_status', this.aliveStatus);
     formDataObj.append('start_index', this.startIndex.toString());
-    formDataObj.append('record_count', this.appService.fetch_count.toString());
+    formDataObj.append('record_count', this.appService.fetchCount.toString());
     formDataObj.append('get_total_count', '1');
     let response:any = await SimpleHttp.postPromise({url:`${ApiUrls.getMembers}`,formData: formDataObj});
     this.membersList = [ ...this.membersList, ...response['records']];
@@ -126,9 +126,9 @@ export class MemberListComponent extends AppBaseComponent implements OnInit, Aft
 
   getRedirectUrl(itemId: number | undefined): string {
     if (itemId === undefined) {
-      return '/member-detail/';
+      return '/members';
     }
-    return `/member-detail/${itemId}`;
+    return `member-detail/${itemId}`;
   }
 
   openModal() {
@@ -152,5 +152,9 @@ export class MemberListComponent extends AppBaseComponent implements OnInit, Aft
     document.getElementById('loader')?.classList.remove('hidden');
     this.geMembersList();
     this.closeModal();
+  }
+
+  getProfilePicPath(profilePic: string, memberGender: string): string {
+    return this.appService.getProfileImagePath(profilePic, memberGender);
   }
 }

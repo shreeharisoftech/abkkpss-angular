@@ -1,6 +1,7 @@
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ErrorHandler, NgModule, isDevMode } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
@@ -21,6 +22,7 @@ import { SimplifyAngularModule } from '@satvasoftech/simplify-angular';
     CommonModule,
     FormsModule,
     NgbModule,
+    MatTabsModule,
     ReactiveFormsModule,
     SimplifyAngularModule,
     RouterModule.forRoot(routes, {

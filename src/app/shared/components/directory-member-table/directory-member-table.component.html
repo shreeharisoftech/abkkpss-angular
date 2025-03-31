@@ -1,0 +1,85 @@
+<div class="px-5">
+  <div class="p-4 card shadow-md rounded-lg">
+    <div
+      class="mb-4 grid text-center place-items-center"
+      [class.grid-cols-1]="showMainImage && !showSpouseImage || !showMainImage && showSpouseImage"
+      [class.grid-cols-2]="showMainImage && showSpouseImage"
+    >
+      @if(showMainImage){
+        <img src="{{mainImage}}" alt="Main Image" class="w-24 h-24 rounded-full border-2 border-gray-300 dark:border-gray-300" />
+      }
+      @if(showSpouseImage){
+        <img src="{{mainSpouseImage}}" alt="Spouse Image" class="w-24 h-24 rounded-full border-2 border-gray-300 dark:border-gray-300" />
+      }
+    </div>
+
+    <!-- Row with 4 columns -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-4 border-b pb-2 border-gray-300 dark:border-gray-300 text-center"> 
+      <div class="text-gray-800 dark:text-gray-800 centered-flex">
+        <strong class="mr-1">Family Index:</strong> {{ data?.[0][ViewMembersDetails.familyIndex] || '' }}
+      </div>
+      <div class="text-gray-800 dark:text-gray-800 centered-flex">
+        <strong class="mr-1">Native:</strong> {{ data?.[0][ViewMembersDetails.memberNative] }}
+      </div>
+      <div class="text-gray-800 dark:text-gray-800 centered-flex">
+        <strong class="mr-1">City:</strong> {{ data?.[0][ViewMembersDetails.cityName] }}
+      </div>
+      <div class="text-gray-800 dark:text-gray-800 centered-flex">
+        <strong class="mr-1">Gotra:</strong> {{ data?.[0][ViewMembersDetails.memberGotra] }}
+      </div>
+      <div class="text-gray-800 dark:text-gray-800">
+          @if(data?.[0][ViewMembersDetails.isLifetime]){
+              @if (data?.[0][ViewMembersDetails.memberType] == 'Member') {
+                  <button class="btn btn-success">આજીવન નિભાવફંડ</button>
+              }@else{
+                  <button class="btn btn-danger">આજીવન નિભાવફંડ</button>
+              }
+          }@else{
+              <button class="btn btn-secondary">સામાન્ય સભ્ય</button>
+          }
+        </div>
+    </div>
+  
+    <!-- Table with member details -->
+     <div class="scrollable-x-auto">
+       <table class="table table-border table-auto text-center">
+         <thead>
+           <tr>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">Sr No.</th>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">Member Name</th>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">DOB</th>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">Relation with Main</th>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">Education</th>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">Mobile No</th>
+             <th class="px-4 py-2 text-gray-800 dark:text-gray-800">Blood Group</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let member of data; let i = index" (click)="showMemberDetails(member[ViewMembersDetails.memberId])" class="cursor-pointer">
+             <td class="px-4 py-2 text-center text-gray-800 dark:text-gray-800 text-2sm font-normal">{{ i + 1 }}</td>
+             @if(member[ViewMembersDetails.mainId] == member[ViewMembersDetails.memberId] && member[ViewMembersDetails.isLifetime] && member[ViewMembersDetails.memberType] == 'Member'){
+                 <td class="px-4 py-2 text-success font-bold">{{ member[ViewMembersDetails.memberName] }}</td>
+             }@else{
+                 <td class="px-4 py-2 text-gray-800 dark:text-gray-800">{{ member[ViewMembersDetails.memberName] }}</td>
+             }
+             <!-- <td class="px-4 py-2 text-gray-800 dark:text-gray-800">{{ member[ViewMembersDetails.memberName] }}</td> -->
+             <td class="px-4 py-2 text-gray-800 dark:text-gray-800">
+              {{ getFormattedDate(member[ViewMembersDetails.birthDay], member[ViewMembersDetails.birthMonth], member[ViewMembersDetails.birthYear]) }}
+            </td>
+             <td class="px-4 py-2 text-gray-800 dark:text-gray-800">{{ member[ViewMembersDetails.relationWithMain] }}</td>
+             <td class="px-4 py-2 text-gray-800 dark:text-gray-800">{{ member[ViewMembersDetails.memberQualification] }}</td>
+             <td class="px-4 py-2 text-gray-800 dark:text-gray-800">{{ member[ViewMembersDetails.memberPhone] }}</td>
+             <td class="px-4 py-2 text-gray-800 dark:text-gray-800">{{ member[ViewMembersDetails.bloodGroup] }}</td>
+           </tr>
+         </tbody>
+         <tfoot>
+           <tr>
+             <td colspan="7" class="px-4 py-2 text-left text-gray-800 dark:text-gray-800">
+               <strong>Address:</strong> {{ data?.[0][ViewMembersDetails.memberAddress] }}
+             </td>
+           </tr>
+         </tfoot>
+       </table>
+     </div>
+  </div>
+</div>

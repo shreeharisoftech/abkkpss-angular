@@ -15,7 +15,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 	@HostBinding('class') hostClass = 'flex grow';
 
   constructor(){
-    SimpleHttp.baseUrl = 'https://abkkpss.com/api';
+    SimpleHttp.baseUrl = 'https://192.168.2.12/abkkpss/api'; // Update this to your API base URL
     SimpleDataDictionary.registerDataDictionary(DataDictionary);
     this.setSimpleDatabase();
   }
