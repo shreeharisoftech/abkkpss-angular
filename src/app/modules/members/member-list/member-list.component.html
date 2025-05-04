@@ -140,7 +140,7 @@
         @for (item of membersList; track $index) {
         <div class="m-3">
         <app-memberlist-card [memberImageUrl]="getProfilePicPath(item[ViewMembersDetails.memberProfilePic], item[ViewMembersDetails.memberGender])" [memberName]="item[ViewMembersDetails.memberName]" [memberNative]="item[ViewMembersDetails.memberNative]"
-            [memberCurrent]="item[ViewMembersDetails.cityName]" [redirectUrl]="getRedirectUrl(item[ViewMembersDetails.memberId])"></app-memberlist-card>
+            [memberCurrent]="item[ViewMembersDetails.cityName]" [redirectUrl]="getRedirectUrl(item[ViewMembersDetails.memberId])" [isLifeTime]="item[ViewMembersDetails.isLifetime]" [memberType]="item[ViewMembersDetails.memberType]"></app-memberlist-card>
         </div>
         }
     </div>

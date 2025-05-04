@@ -1,5 +1,5 @@
 export enum ApiUrls {
-  baseApiUrl = "https://192.168.2.12/abkkpss/", // Update this to your API base URL
+  baseApiUrl = "https://192.168.1.13/abkkpss/", // Update this to your API base URL
   getCommitee = "/getCommitee",
   getCurrentUser = "/getCurrentUser",
   getFamilyTree = "/getFamilyTree",

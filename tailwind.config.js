@@ -631,6 +631,6 @@ module.exports = {
 		require('./src/theme/core/plugins/components/scrollable'),
 		require('./src/theme/core/plugins/components/progress'),
 		require('./src/theme/core/plugins/components/apexcharts'),
-		require('./src/theme/core/plugins/components/leaflet')
+		require('./src/theme/core/plugins/components/leaflet'),
 	]
 };

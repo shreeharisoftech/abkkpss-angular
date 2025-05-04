@@ -4,6 +4,7 @@ import { KTLayout } from '../theme/app/layouts/layout';
 import { ISimpleDatabaseInputResolutionFunctionParams, SimpleDatabase, SimpleDatabaseColumn, SimpleDatabaseInput, SimpleDataDictionary, SimpleHttp } from '@satvasoftech/simplify-angular';
 import { DataDictionary } from './core/database/data-dictionary';
 import { AppDatabaseInputTemplateComponent } from './shared/components/app-database-input-template/app-database-input-template.component';
+import { ApiUrls } from './core/configs/api-urls';
 
 @Component({
 	selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements AfterViewInit, OnInit {
 	@HostBinding('class') hostClass = 'flex grow';
 
   constructor(){
-    SimpleHttp.baseUrl = 'https://192.168.2.12/abkkpss/api'; // Update this to your API base URL
+    SimpleHttp.baseUrl = `${ApiUrls.baseApiUrl}api`; // Update this to your API base URL
     SimpleDataDictionary.registerDataDictionary(DataDictionary);
     this.setSimpleDatabase();
   }

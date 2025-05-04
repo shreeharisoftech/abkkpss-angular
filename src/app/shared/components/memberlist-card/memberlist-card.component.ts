@@ -1,15 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AppService } from '../../../core/services/app.service';
+import { AppBaseComponent } from '../../base-parents/app-base/app-base.component';
+import { SimplifyService } from '@satvasoftech/simplify-angular';
 
 @Component({
   selector: 'app-memberlist-card',
   imports: [
-    RouterModule
+    RouterModule,
+    CommonModule
   ],
   templateUrl: './memberlist-card.component.html',
   styleUrl: './memberlist-card.component.scss'
 })
-export class MemberlistCardComponent {
+export class MemberlistCardComponent extends AppBaseComponent {
   @Input()
   memberName? = "";
 
@@ -24,4 +29,14 @@ export class MemberlistCardComponent {
 
   @Input()
   redirectUrl? = "";
+
+  @Input()
+  isLifeTime = 0;
+
+  @Input()
+  memberType? = "";
+
+  constructor(elementRef: ElementRef, simplify: SimplifyService, appService: AppService) {
+    super(elementRef, simplify, appService);
+  }
 }
