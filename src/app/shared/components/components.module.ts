@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../directives/directives.module';
 import { AppDatabaseInputTemplateComponent } from './app-database-input-template/app-database-input-template.component';
 import { SimplifyAngularModule } from '@satvasoftech/simplify-angular';
-import { MemberlistCardComponent } from './memberlist-card/memberlist-card.component';
+import { ListCardComponent } from './list-card/list-card.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { MemberlistCardComponent } from './memberlist-card/memberlist-card.compo
     FormsModule,
     ReactiveFormsModule,
     SimplifyAngularModule,
-    MemberlistCardComponent
+    ListCardComponent
   ]
 })
 export class ComponentsModule { }

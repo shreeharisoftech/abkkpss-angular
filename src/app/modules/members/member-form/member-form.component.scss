@@ -1,0 +1,53 @@
+.form-input {
+    background-color: var(--tw-gray-200); /* Light mode background */
+    border: 1px solid var(--tw-gray-300); /* Light mode border */
+    color: var(--tw-gray-900); /* Light mode text */
+    font-size: 0.875rem; /* Tailwind's text-sm */
+    border-radius: 0.5rem; /* Tailwind's rounded-lg */
+    padding: 0.625rem; /* Tailwind's p-2.5 */
+    width: 100%; /* Tailwind's w-full */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+    &:focus {
+      outline: none;
+      border-color: var(--tw-primary); /* Theme's primary color for focus border */
+      box-shadow: 0 0 0 3px rgba(var(--tw-primary-rgb), 0.3); /* Theme's primary color for focus ring */
+    }
+  
+    &::placeholder {
+      color: var(--tw-gray-400); /* Light mode placeholder */
+    }
+  
+    /* Dark mode styles */
+    .dark & {
+      background-color: #26272F; /* Dark mode background */
+      border-color: var(--tw-gray-600); /* Dark mode border */
+      color: var(--tw-gray-800); /* Dark mode text */
+      &::placeholder {
+        color: var(--tw-gray-800); /* Dark mode placeholder */
+      }
+      &:focus {
+        border-color: var(--tw-primary); /* Theme's primary color for focus border in dark mode */
+        box-shadow: 0 0 0 3px rgba(var(--tw-primary-rgb), 0.3); /* Theme's primary color for focus ring in dark mode */
+      }
+    }
+}
+
+.dark .form-input {
+  background-color: #26272F; /* Remove quotes */
+  border-color: var(--tw-gray-600);
+  color: var(--tw-gray-800);
+}
+
+.dark .form-input::placeholder {
+  color: var(--tw-gray-800);
+}
+
+.dark .form-input:focus {
+  border-color: var(--tw-primary);
+  box-shadow: 0 0 0 3px rgba(var(--tw-primary-rgb), 0.3);
+}
+
+.max-height-30{
+  max-height: 30rem;
+}

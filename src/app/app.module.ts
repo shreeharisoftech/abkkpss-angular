@@ -30,7 +30,7 @@ import { SimplifyAngularModule } from '@satvasoftech/simplify-angular';
       anchorScrolling: 'enabled',
       useHash: true
     }),
-  ],
+],
     providers: [
       {
         provide: ErrorHandler,

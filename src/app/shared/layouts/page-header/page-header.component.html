@@ -44,7 +44,7 @@
       <div class="menu" data-menu="true">
         <div class="menu-item" data-menu-item-offset="20px, 10px" data-menu-item-placement="bottom-end"
           data-menu-item-toggle="dropdown" data-menu-item-trigger="click|lg:click">
-          <div class="menu-toggle btn btn-icon rounded-full">
+          <div class="menu-toggle btn btn-icon rounded-full"  id="headerProfileAvatarBadge">
             <img alt="" class="size-9 rounded-full border-2 shrink-0" [ngClass]="getMemberProfileRibbon()"
               src="{{getMemberProfileImage()}}" />
           </div>
@@ -64,7 +64,7 @@
               </div>
             <div class="flex flex-col">
               <div class="menu-item">
-                <a class="menu-link" [routerLink]="getMemberProfileLink()">
+                <a class="menu-link" [routerLink]="getMemberProfileLink()" (click)="appService.closeProfileDialog()">
                   <span class="menu-icon">
                     <i class="ki-filled ki-badge">
                     </i>
@@ -86,7 +86,7 @@
                 </a>
               </div> -->
               <div class="menu-item">
-                <a class="menu-link" href="html/demo1/account/home/user-profile.html">
+                <a class="menu-link" href="#"  [routerLink]="['/members/member-form', 'new', 0]">
                   <span class="menu-icon">
                     <i class="ki-filled ki-user-edit">
                     </i>
@@ -97,7 +97,7 @@
                 </a>
               </div>
               <div class="menu-item">
-                <a class="menu-link" [routerLink]="['/auth']">
+                <a class="menu-link" [routerLink]="['/firms/firm-form', 'new', 0]" (click)="appService.closeProfileDialog()">
                   <span class="menu-icon">
                     <i class="ki-filled ki-car">
                     </i>
@@ -211,7 +211,7 @@
                 </div>
               }@else{
                 <div class="menu-item px-4 py-1.5">
-                  <a class="btn btn-sm btn-light justify-center" [routerLink]="['auth']">
+                  <a class="btn btn-sm btn-light justify-center" (click)="this.appService.closeProfileDialog()" [routerLink]="['auth']">
                     Log In
                   </a>
                 </div>

@@ -1,0 +1,58 @@
+/* filepath: d:\ShreeHari Softech\Projects\abkkpss-angular\src\app\modules\members\member-list\member-list.component.scss */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#scrollContainer {
+  height: 100%; /* Or use 92vh if that worked before */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  background-color: var(--tw-gray-50); /* Light mode background */
+  border: 1px solid var(--tw-gray-300); /* Light mode border */
+  color: var(--tw-gray-900); /* Light mode text */
+  font-size: 0.875rem; /* Tailwind's text-sm */
+  border-radius: 0.5rem; /* Tailwind's rounded-lg */
+  padding: 0.625rem; /* Tailwind's p-2.5 */
+  width: 100%; /* Tailwind's w-full */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--tw-primary); /* Theme's primary color for focus border */
+    box-shadow: 0 0 0 3px rgba(var(--tw-primary-rgb), 0.3); /* Theme's primary color for focus ring */
+  }
+
+  &::placeholder {
+    color: var(--tw-gray-400); /* Light mode placeholder */
+  }
+
+  /* Dark mode styles */
+  .dark & {
+    background-color: var(--tw-gray-200); /* Dark mode background */
+    border-color: var(--tw-gray-600); /* Dark mode border */
+    color: var(--tw-gray-800); /* Dark mode text */
+    &::placeholder {
+      color: var(--tw-gray-800); /* Dark mode placeholder */
+    }
+    &:focus {
+      border-color: var(--tw-primary); /* Theme's primary color for focus border in dark mode */
+      box-shadow: 0 0 0 3px rgba(var(--tw-primary-rgb), 0.3); /* Theme's primary color for focus ring in dark mode */
+    }
+  }
+}
+
+.scrollable-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.max-height-30{
+  max-height: 30rem;
+}

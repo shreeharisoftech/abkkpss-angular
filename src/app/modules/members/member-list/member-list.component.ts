@@ -5,13 +5,13 @@ import { SimpleHttp, SimplifyService } from '@satvasoftech/simplify-angular';
 import { ApiUrls } from '../../../core/configs/api-urls';
 import { ViewMemberDetails } from '../../../core/database/data-dictionary';
 import { Subject } from 'rxjs';
-import { MemberlistCardComponent } from '../../../shared/components/memberlist-card/memberlist-card.component';
+import { ListCardComponent } from '../../../shared/components/list-card/list-card.component';
 import { AppService } from '../../../core/services/app.service';
 import { HeaderMenuItemComponent } from '../../../shared/layouts/page-header/header-menu-item/header-menu-item.component';
 
 @Component({
   selector: 'app-member-list',
-  imports: [MemberlistCardComponent, FormsModule],
+  imports: [ListCardComponent, FormsModule],
   templateUrl: './member-list.component.html',
   styleUrl: './member-list.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -131,30 +131,11 @@ export class MemberListComponent extends AppBaseComponent implements OnInit, Aft
     return `member-detail/${itemId}`;
   }
 
-  openModal() {
-    const modal = document.getElementById('updateProductModal');
-    if (modal) {
-      modal.classList.remove('hidden');
-    }
-  }
-
-  closeModal() {
-    const modal = document.getElementById('updateProductModal');
-    if (modal) {
-      modal.classList.add('hidden');
-    }
-  }
-
   applyFilter() {
     this.membersList = [];
     this.startIndex = 1;
     this.reachedEnd = false;
     document.getElementById('loader')?.classList.remove('hidden');
     this.geMembersList();
-    this.closeModal();
-  }
-
-  getProfilePicPath(profilePic: string, memberGender: string): string {
-    return this.appService.getProfileImagePath(profilePic, memberGender);
   }
 }

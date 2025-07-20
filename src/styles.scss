@@ -110,3 +110,11 @@
     @apply bg-gray-200;
   }
 }
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* white icon in dark mode */
+}
+
+.light input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0); /* default in light mode */
+}

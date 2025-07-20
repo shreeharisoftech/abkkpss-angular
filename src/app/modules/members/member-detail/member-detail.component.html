@@ -7,15 +7,26 @@
           <div class="flex flex-col lg:flex-row gap-4 p-4">
             <div class="p-6 mt-7 card shadow-lg rounded-lg">
                 <div class="flex justify-center items-center min-w-60">
-                    <img [src]="getProfilePicPath(memberDetail[ViewMemberDetails.memberProfilePic], memberDetail[ViewMemberDetails.memberGender])" 
+                    <img [src]="this.appService.getProfileImagePath(memberDetail[ViewMemberDetails.memberProfilePic], memberDetail[ViewMemberDetails.memberGender])" 
                          [alt]="memberDetail[ViewMemberDetails.memberName]" 
                          class="w-40 h-40 rounded-full border-4"
-                         [ngClass]="appService.getMemberRibbonClass(memberDetail[ViewMemberDetails.isLifetime], memberDetail[ViewMemberDetails.memberType])">
+                         [ngClass]="appService.getMemberShabiyaPadColorClass(memberDetail[ViewMemberDetails.isLifetime], memberDetail[ViewMemberDetails.memberType])">
                 </div>
-                @if(showMemberEditButtons && isProfileDataLoaded){
+                <div class="mt-4 text-center">
+                    <a class="btn btn-sm {{this.appService.getMemberShabiyaPadColorClass(this.memberDetail[ViewMemberDetails.isLifetime], this.memberDetail[ViewMemberDetails.memberType], true)}}">{{getMemberShabiyaText()}}</a>
+                </div>
+                <div class="my-2">
+                    <p class="text-sm font-medium text-gray-900 text-center">
+                        Member Id: {{ memberDetail[ViewMemberDetails.memberId] }}
+                    </p>
+                    <p class="text-xs font-medium text-gray-900 text-center mt-2">
+                        Family Id: {{ memberDetail[ViewMemberDetails.familyIndex] }}
+                    </p>
+                </div>
+                @if(showEditButtons && isProfileDataLoaded){
                     <div class="h-full flex flex-col items-center justify-center">
                         <div class="h-auto w-full mt-5 group">
-                            <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active" (click)="openModal('uploadProfilePicModal')">
+                            <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active" data-modal-target="modalUpdateProfilePic" data-modal-toggle="#modalUpdateProfilePic">
                                 <div class="flex justify-center">
                                     <div class="flex items-center gap-1.5">
                                         <span class="text-sm font-medium text-gray-900 group-hover:text-primary-active">
@@ -26,19 +37,21 @@
                             </div>
                         </div>                    
                         <div class="h-auto w-full mt-5 group">
-                            <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active" (click)="openModal('editProfileModal')">
-                                <div class="flex justify-center">
-                                    <div class="flex items-center gap-1.5">
-                                        <span class="text-sm font-medium text-gray-900 group-hover:text-primary-active">
-                                            Edit Profile
-                                        </span>
+                            <a href="#" [routerLink]="['/members/member-form','edit', this.memberId]" class="w-full">
+                                <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active">
+                                    <div class="flex justify-center">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-sm font-medium text-gray-900 group-hover:text-primary-active">
+                                                Edit Profile
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         
                         <div class="h-auto w-full mt-5 group">
-                            <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active" (click)="openModal('changeCredentialModal')">
+                            <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active" data-modal-target="modalUpdateLoginCred" data-modal-toggle="#modalUpdateLoginCred">
                                 <div class="flex justify-center">
                                     <div class="flex items-center gap-1.5">
                                         <span class="text-sm font-medium text-gray-900 group-hover:text-primary-active">
@@ -47,7 +60,21 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                    
+                        </div>
+
+                        @if(this.userData[ViewUsers.userType] == -1){
+                            <div class="h-auto w-full mt-5 group">
+                                <div class="border border-gray-200 cursor-pointer hover:bg-danger dark:hover:bg-danger dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-white" data-modal-target="modalDeleteProfile" data-modal-toggle="#modalDeleteProfile">
+                                    <div class="flex justify-center">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-sm font-medium">
+                                                Delete Profile
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 }
             </div>
@@ -170,13 +197,11 @@
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @for (item of familyMembers; track $index) {
               <div class="m-3">
-                  <!-- <app-member-card [memberImageUrl]="" [memberName]="item.name" [memberNative]="item.native"
-                      [memberCurrent]="item.city" [redirectUrl]="getRedirectUrl(item.id)" (click)="focusFirstTab(item.id ?? 0)"></app-member-card> -->
-                <app-memberlist-card [memberImageUrl]="getProfilePicPath(item[ViewMemberDetails.memberProfilePic], item[ViewMemberDetails.memberGender])" [memberName]="item[ViewMemberDetails.memberName]" [memberNative]="item[ViewMemberDetails.memberNative]"
-                      [memberCurrent]="item[ViewMemberDetails.cityName]" [redirectUrl]="getRedirectUrl(item[ViewMemberDetails.memberId])" (click)="focusFirstTab(item.id ?? 0)" [isLifeTime]="item[ViewMemberDetails.isLifetime]"></app-memberlist-card>
+                <app-list-card [memberImageUrl]="this.appService.getProfileImagePath(item[ViewMemberDetails.memberProfilePic], item[ViewMemberDetails.memberGender])" [title]="item[ViewMemberDetails.memberName]" [memberNative]="item[ViewMemberDetails.memberNative]"
+                      [memberCurrent]="item[ViewMemberDetails.cityName]" [redirectUrl]="getRedirectUrl(item[ViewMemberDetails.memberId])" (click)="focusFirstTab(item.id ?? 0)" [isLifeTime]="item[ViewMemberDetails.isLifetime]"></app-list-card>
               </div>
             }
-        </div>
+          </div>
         </mat-tab>
         <mat-tab label="Family Tree"> 
           <ng-template matTabLabel>
@@ -203,328 +228,105 @@
       </mat-tab-group>      
 </div>
 
-
-
-<div id="changeCredentialModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden">
-    <div class="relative p-4 w-full max-w-4xl h-auto">
-    <!-- Modal content -->
-    <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-200 sm:p-5">
-        <!-- Modal header -->
-        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Update Login Credentials
-        </h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" (click)="closeModal('changeCredentialModal')">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            <span class="sr-only">Close modal</span>
-        </button>
-        </div>
-        <!-- Modal body -->
-        <form>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-height-30 overflow-auto">
-            <div>
-                <label for="mobileNo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile No</label>
-                <input type="text" id="mobileNo" class="form-input" [(ngModel)]="member.memberPhone" placeholder="Mobile No." name="mobileNo" />
-            </div>
-            <div>
-                <label for="newPass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
-                <input type="password" id="newPass" class="form-input" [(ngModel)]="newPassword" placeholder="New Password" name="newPass" />
-            </div>
-            <div>
-                <label for="confNewPass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                <input type="password" id="confNewPass" class="form-input" [(ngModel)]="confirmPassword" placeholder="Confirm Password" name="confNewPass" />
+<div class="modal" data-modal="true" id="modalUpdateLoginCred">
+    <div class="modal-content max-w-[600px] top-[15%]">
+        <div class="modal-header py-4 px-5">
+            <div class="flex justify-between items-center rounded-t w-full">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Update Login Credentials
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-dismiss="true">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
             </div>
         </div>
-        <div class="flex justify-end mt-4">
-            <button type="submit" class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800" (click)="updateCredentials()">
-            <i class="fa fa-lock"></i> Update Credentials
-            </button>
+        <div class="modal-body p-0 pb-5">
+            <div class="p-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-height-30 overflow-auto">
+                    <div>
+                        <label for="mobileNo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile No</label>
+                        <input type="text" id="mobileNo" class="form-input" [(ngModel)]="userMobileNo" placeholder="Mobile No." name="mobileNo" />
+                    </div>
+                    <div>
+                        <label for="newPass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+                        <input type="password" id="newPass" class="form-input" [(ngModel)]="newPassword" placeholder="New Password" name="newPass" />
+                    </div>
+                    <div>
+                        <label for="confNewPass" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                        <input type="password" id="confNewPass" class="form-input" [(ngModel)]="confirmPassword" placeholder="Confirm Password" name="confNewPass" />
+                    </div>
+                </div>
+                <div class="flex justify-end mt-4">
+                    <button type="submit" class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800" (click)="updateCredentials()">
+                    <i class="fa fa-lock"></i> Update Credentials
+                    </button>
+                </div>
+            </div>
         </div>
-        </form>
-    </div>
     </div>
 </div>
 
-
-<div id="editProfileModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden">
-    <div class="relative p-4 w-full max-w-4xl h-auto">
-    <!-- Modal content -->
-    <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-200 sm:p-5">
-        <!-- Modal header -->
-        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Edit Profile
-        </h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" (click)="closeModal('editProfileModal')">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            <span class="sr-only">Close modal</span>
-        </button>
+<div class="modal" data-modal="true" id="modalUpdateProfilePic">
+    <div class="modal-content max-w-[600px] top-[15%]">
+        <div class="modal-header py-4 px-5">
+            <div class="flex justify-between items-center rounded-t w-full">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Upload Profile Picture
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-dismiss="true">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
         </div>
-        <!-- Modal body -->
-        <div class="block sm:grid lg:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-height-30 overflow-auto">
-            <!-- Main Member -->
-            <div>
-            <label for="main_member" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Main Member</label>
-            <select #main_member id="main_member" class="form-input" placeholder="First Name" [(ngModel)]="member.mainMemberId" name="mainMemberId">
-                <option value="" disabled selected>Select an option</option>
-            </select>
-            </div>
-            <!-- Parent Member -->
-            <div>
-            <label for="parent_member" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parent Member</label>
-            <select #parent_member id="parent_member" class="form-input" placeholder="First Name" [(ngModel)]="member.parentId" name="parentId" >
-                <option value="" disabled selected>Select an option</option>
-            </select>
-            </div>
-            <!-- First Name -->
-            <div>
-            <label for="member_fname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-            <input type="text" id="member_fname" class="form-input" placeholder="First Name" [(ngModel)]="member.memberFname" name="memberFname" />
-            </div>
-            <!-- Middle Name -->
-            <div>
-            <label for="member_mname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Middle Name</label>
-            <input type="text" id="member_mname" class="form-input" placeholder="Middle Name" [(ngModel)]="member.memberMname" name="memberMname" />
-            </div>
-            <!-- Last Name -->
-            <div>
-            <label for="member_lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-            <input type="text" id="member_lname" class="form-input" placeholder="Last Name" [(ngModel)]="member.memberLname" name="memberLname" />
-            </div>
-            <!-- Gotra -->
-            <div>
-            <label for="member_gotra" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gotra</label>
-            <select id="member_gotra" class="form-input" name="memberGotra" [(ngModel)]="member.memberGotra">
-                @if(gotraList.length > 0) {
-                    @for (gotra of gotraList; track $index) {
-                        <option value="{{gotra}}">{{gotra}}</option>
-                    }
-                } @else {
-                    <option value="">No Gotra Found</option>
-                }
-            </select>
-            </div>
-            <!-- Native Place -->
-            <div>
-            <label for="member_native" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Native Place</label>
-            <select id="member_native" class="form-input" name="memberNative" [(ngModel)]="member.memberNative">
-                @if(nativeList.length > 0) {
-                    @for (native of nativeList; track $index) {
-                        <option value="{{native}}">{{native}}</option>
-                    }
-                } @else {
-                    <option value="">No Native Found</option>
-                }
-            </select>
-            </div>
-            <!-- Phone Number -->
-            <div>
-            <label for="member_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone No</label>
-            <input type="text" id="member_phone" class="form-input" placeholder="Phone Number" [(ngModel)]="member.memberPhone" name="memberPhone" />
-            </div>
-            <!-- Marital Status -->
-            <div>
-            <label for="maritial_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marital Status</label>
-            <select id="maritial_status" class="form-input" [(ngModel)]="member.maritialStatus" name="maritialStatus">
-                <option value="">Select Marital Status</option>
-                <option value="0">Single</option>
-                <option value="1">Engaged</option>
-                <option value="2">Married</option>
-            </select>
-            </div>
-            <!-- Spouse Name -->
-            <div [ngClass]="{'hidden': member.maritialStatus <= 0, 'block': member.maritialStatus > 0}">
-              <label for="spouse_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Spouse</label>
-              <select #spouse_id id="spouse_id" class="form-input" placeholder="Spouse_id" [(ngModel)]="member.spouseId" name="spouseId">
-                <option value="" disabled selected>Select an option</option>
-              </select>
-            </div>
-
-            <!-- Engagement Date -->
-            <div [ngClass]="{'hidden': member.maritialStatus <= 0, 'block': member.maritialStatus > 0}">
-              <label for="engagement_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Engagement Date</label>
-              <input type="date" id="engagement_date" class="form-input" placeholder="Engagement Date" [(ngModel)]="member.engagementDate" name="engagementDate" />
-            </div>
-            @if(member.maritialStatus > 1){
-                <!-- Marriage Date -->
-                <div>
-                <label for="marriage_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marriage Date</label>
-                <input type="date" id="marriage_date" class="form-input" placeholder="Marriage Date" [(ngModel)]="member.marraigeDate" name="marriageDate" />
+        <div class="modal-body p-5 pb-5">
+            <form (submit)="uploadFile()">
+                <div 
+                    class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                    (dragover)="onDragOver($event)" 
+                    (dragleave)="onDragLeave($event)" 
+                    (drop)="onDrop($event)"
+                    [ngClass]="{'bg-blue-50 border-blue-500': isDragging, 'bg-gray-50 dark:bg-gray-700': !isDragging}">
+                    <input type="file" id="fileInput" class="hidden" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png" />
+                    <label for="fileInput" class="cursor-pointer flex flex-col items-center justify-center">
+                    <svg class="w-10 h-10 mb-3 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18M3 12h18m-6 4l4-4m0 0l-4-4m4 4H7"></path>
+                    </svg>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Drag and drop your image here, or <span class="text-blue-600 dark:text-blue-400 underline">browse</span>
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        Only JPG, JPEG, PNG formats are allowed
+                    </p>
+                    <p *ngIf="selectedFile" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                        Selected File: <span class="font-medium">{{ selectedFile.name }}</span>
+                    </p>
+                    </label>
                 </div>
-            }
-            <!-- Qualification -->
-            <div>
-            <label for="member_qualification" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qualification</label>
-            <input type="text" id="member_qualification" class="form-input" placeholder="Qualification" [(ngModel)]="member.memberQualification" name="memberQualification" />
+            <div class="flex justify-end mt-4">
+                <button type="submit" class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">
+                <i class="fa fa-upload"></i> Upload Picture
+                </button>
             </div>
-            <!-- Blood Group -->
-            <div>
-            <label for="blood_group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blood Group</label>
-            <select id="blood_group" class="form-input" [(ngModel)]="member.bloodGroup" name="bloodGroup">
-                <option value="">Select Blood Group</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-            </select>
-            </div>
-            <!-- Zone -->
-            <div>
-            <label for="zone_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zone</label>
-            <select id="zone_id" class="form-input" [(ngModel)]="member.zoneId" name="zoneId">
-                <option value="">Select Zone</option>
-                <option value="1">01 - Ahmedabad</option>
-                <option value="2">02 - Nadiad</option>
-                <option value="3">03 - Vadodara-Bharuch</option>
-                <option value="4">04 - South Gujarat</option>
-                <option value="5">05 - North Gujarat</option>
-                <option value="6">06 - Saurashtra</option>
-                <option value="7">07 - Indore</option>
-                <option value="9">08 - South India</option>
-                <option value="10">09 - Maharashtra</option>
-                <option value="11">10 - East Kutch</option>
-                <option value="12">11 - West Kutch</option>
-            </select>
-            </div>
-            <!-- City -->
-            <div>
-            <label for="city_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-            <select id="member_city" class="form-input" name="memberCity" [(ngModel)]="member.cityName">
-                @if(cityList.length > 0) {
-                    @for (city of cityList; track $index) {
-                        <option value="{{city}}">{{city}}</option>
-                    }
-                } @else {
-                    <option value="">No City Found</option>
-                }
-            </select>
-            </div>
-            <!-- State -->
-            <div>
-            <label for="state_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-            <select id="member_state" class="form-input" name="memberState" [(ngModel)]="member.stateName">
-                @if(stateList.length > 0) {
-                    @for (state of stateList; track $index) {
-                        <option value="{{state}}">{{state}}</option>
-                    }
-                } @else {
-                    <option value="">No State Found</option>
-                }
-            </select>
-            </div>
-            <!-- Country -->
-            <div>
-            <label for="country_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-            <select id="member_country" class="form-input" name="memberCountry" [(ngModel)]="member.countryName">
-                @if(countryList.length > 0) {
-                    @for (country of countryList; track $index) {
-                        <option value="{{country}}">{{country}}</option>
-                    }
-                } @else {
-                    <option value="">No Country Found</option>
-                }
-            </select>
-            </div>
-            <!-- Address -->
-            <div class="col-span-2">
-            <label for="member_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-            <textarea id="member_address" class="form-input" placeholder="Address" [(ngModel)]="member.memberAddress" name="memberAddress"></textarea>
-            </div>
-            <!-- Postal Code -->
-            <div>
-            <label for="postal_code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Postal Code</label>
-            <input type="text" id="postal_code" class="form-input" placeholder="Postal Code" [(ngModel)]="member.postalCode" name="postalCode" />
-            </div>
-            <!-- Date of Birth -->
-            <div>
-            <label for="member_dob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</label>
-            <input type="date" id="member_dob" class="form-input" placeholder="Date of Birth" [(ngModel)]="member.memberDob" name="memberDob" />
-            </div>
-            <!-- Gender -->
-            <div>
-            <label for="member_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-            <select id="member_gender" class="form-input" [(ngModel)]="member.memberGender" name="memberGender">
-                <option value="">Select Gender</option>
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-            </select>
-            </div>
-            <!-- Life Status -->
-            <div>
-            <label for="alive_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Life Status</label>
-            <select id="alive_status" class="form-input" [(ngModel)]="member.aliveStatus" name="aliveStatus">
-                <option value="">Select Member Life Status</option>
-                <option value="0">હયાત</option>
-                <option value="-1">અક્ષરવાસી</option>
-            </select>
-            </div>
-            @if(member.aliveStatus == '-1'){
-                <!-- Demise Date -->
-                <div>
-                <label for="demise_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Demise Date</label>
-                <input type="date" id="demise_date" class="form-input" placeholder="Demise Date" [(ngModel)]="member.deathDate" name="demiseDate" />
-                </div>
-            }
+            </form>
         </div>
-        <div class="flex justify-end mt-4">
-            <button type="submit" class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800" (click)="updateMemberDetails()">
-            <i class="fa fa-user-edit"></i> Update Profile
-            </button>
-        </div>
-    </div>
     </div>
 </div>
 
-<div id="uploadProfilePicModal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden">
-    <div class="relative p-4 w-full max-w-4xl h-auto">
-      <!-- Modal content -->
-      <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-200 sm:p-5">
-        <!-- Modal header -->
-        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Upload Profile Picture
-          </h3>
-          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" (click)="closeModal('uploadProfilePicModal')">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="sr-only">Close modal</span>
-          </button>
-        </div>
-        <!-- Modal body -->
-        <form (submit)="uploadFile()">
-            <div 
-                class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
-                (dragover)="onDragOver($event)" 
-                (dragleave)="onDragLeave($event)" 
-                (drop)="onDrop($event)"
-                [ngClass]="{'bg-blue-50 border-blue-500': isDragging, 'bg-gray-50 dark:bg-gray-700': !isDragging}">
-                <input type="file" id="fileInput" class="hidden" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png" />
-                <label for="fileInput" class="cursor-pointer flex flex-col items-center justify-center">
-                <svg class="w-10 h-10 mb-3 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18M3 12h18m-6 4l4-4m0 0l-4-4m4 4H7"></path>
-                </svg>
-                <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Drag and drop your image here, or <span class="text-blue-600 dark:text-blue-400 underline">browse</span>
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    Only JPG, JPEG, PNG formats are allowed
-                </p>
-                <p *ngIf="selectedFile" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
-                    Selected File: <span class="font-medium">{{ selectedFile.name }}</span>
-                </p>
-                </label>
+<div class="modal" data-modal="true" id="modalDeleteProfile">
+    <div class="modal-content modal-center max-w-[500px] w-full">
+        <div class="modal-body flex flex-col items-center pt-0 pb-10">
+            <h3 class="text-xl font-medium text-gray-900 text-center mt-6">
+                Confirm Delete Profile
+            </h3>
+            <div class="text-6sm text-center text-gray-700 my-3">
+                Are you sure you want to delete this profile?
             </div>
-          <div class="flex justify-end mt-4">
-            <button type="submit" class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">
-              <i class="fa fa-upload"></i> Upload Picture
-            </button>
-          </div>
-        </form>
-      </div>
+            <div class="flex justify-center items-center gap-4 mt-4">
+                <button class="btn btn-danger" (click)="confirmDelete()" data-modal-dismiss="true">Delete</button>
+                <button class="btn btn-secondary" data-modal-dismiss="true">Cancel</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>

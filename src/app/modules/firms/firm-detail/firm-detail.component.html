@@ -1,0 +1,168 @@
+<div class="custom-tab-group p-4 h-full">
+    <mat-tab-group #tabGroup [color]="'accent'" [backgroundColor]="'primary'" class="dark:text-white">
+        <mat-tab label="Profile"> 
+          <ng-template matTabLabel>
+            <span class="custom-tab-button dark:text-white">Profile</span>
+          </ng-template>
+          <div class="flex flex-col lg:flex-row gap-4 p-4">
+            <div class="p-6 mt-7 card shadow-lg rounded-lg">
+                <div class="flex justify-center items-center min-w-60">
+                    <img [src]="getProfilePicPath(firmDetail[TblFirms.firmProfilePic], 'O')" 
+                         [alt]="firmDetail[TblFirms.firmName]" 
+                         class="w-40 h-40 rounded-full border-4">
+                </div>
+                <div class="my-2">
+                    <p class="text-sm font-medium text-gray-900 text-center">
+                        FirmId: {{ firmDetail[TblFirms.firmId] }}
+                    </p>
+                </div>
+                @if(showEditButtons && isProfileDataLoaded){
+                    <div class="h-full flex flex-col items-center justify-center">
+                        <div class="h-auto w-full mt-5 group">
+                            <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active" data-modal-target="modalUpdateProfilePic" data-modal-toggle="#modalUpdateProfilePic">
+                                <div class="flex justify-center">
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="text-sm font-medium text-gray-900 group-hover:text-primary-active">
+                                            Change Profile Picture
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                        <div class="h-auto w-full mt-5 group">
+                            <a href="#" [routerLink]="['/firms/firm-form','edit', this.firmId]" class="w-full">
+                                <div class="border border-gray-200 cursor-pointer dark:bg-secondary-clarity rounded-xl gap-2 p-3.5 hover:text-primary-active">
+                                    <div class="flex justify-center">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-sm font-medium text-gray-900 group-hover:text-primary-active">
+                                                Edit Firm Details
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="p-6 mt-7 card shadow-lg rounded-lg w-full">
+                <section id="profile-info card-body">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="card-title-text">Name:</h5>
+                            <div id="membername" class="card-data-text break-words">{{this.firmDetail[TblFirms.firmName]}}</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div>
+                            <h5 class="card-title-text">Description:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.firmDescription]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-7">
+                        <div>
+                            <h5 class="card-title-text">Phone:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.firmPhone]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Email:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.firmEmail]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Website:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.firmWebsite]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                        <div class="md:col-span-2">
+                            <h5 class="card-title-text">Address:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.firmAddress]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Postal Code:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.postalCode]}}</div>
+                        </div>
+                    </div>
+            
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
+                        <div>
+                            <h5 class="card-title-text">City:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.cityName]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">State:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.stateName]}}</div>
+                        </div>
+                        <div>
+                            <h5 class="card-title-text">Country:</h5>
+                            <div class="card-data-text break-words">{{this.firmDetail[TblFirms.countryName]}}</div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                        @if((typeof memberList) == 'object' && memberList.length > 0){
+                            @for (item of memberList; track $index) {
+                                <div class="m-3">
+                                    <app-list-card [memberImageUrl]="getProfilePicPath(item[ViewMemberDetails.memberProfilePic], item[ViewMemberDetails.memberGender])" [title]="item[ViewMemberDetails.memberName]" [memberNative]="item[ViewMemberDetails.memberNative]"
+                                    [memberCurrent]="item[ViewMemberDetails.cityName]" [redirectUrl]="getRedirectUrl(item[ViewMemberDetails.memberId])" [isLifeTime]="item[ViewMemberDetails.isLifetime]" [memberType]="item[ViewMemberDetails.memberType]"></app-list-card>
+                                </div>
+                            }
+                        }
+                    </div>
+                </section>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>      
+</div>
+
+<div class="modal" data-modal="true" id="modalUpdateProfilePic">
+    <div class="modal-content max-w-[600px] top-[15%]">
+        <div class="modal-header py-4 px-5">
+            <div class="flex justify-between items-center rounded-t w-full">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Upload Profile Picture
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-dismiss="true">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+        </div>
+        <div class="modal-body p-5 pb-5">
+            <form (submit)="uploadFile($event)">
+                <div 
+                    class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                    (dragover)="onDragOver($event)" 
+                    (dragleave)="onDragLeave($event)" 
+                    (drop)="onDrop($event)"
+                    [ngClass]="{'bg-blue-50 border-blue-500': isDragging, 'bg-gray-50 dark:bg-gray-700': !isDragging}">
+                    <input type="file" id="fileInput" class="hidden" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png" />
+                    <label for="fileInput" class="cursor-pointer flex flex-col items-center justify-center">
+                    <svg class="w-10 h-10 mb-3 text-gray-400 dark:text-gray-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18M3 12h18m-6 4l4-4m0 0l-4-4m4 4H7"></path>
+                    </svg>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Drag and drop your image here, or <span class="text-blue-600 dark:text-blue-400 underline">browse</span>
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        Only JPG, JPEG, PNG formats are allowed
+                    </p>
+                    <p *ngIf="selectedFile" class="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                        Selected File: <span class="font-medium">{{ selectedFile.name }}</span>
+                    </p>
+                    </label>
+                </div>
+            <div class="flex justify-end mt-4">
+                <button type="submit" class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800">
+                <i class="fa fa-upload"></i> Upload Picture
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

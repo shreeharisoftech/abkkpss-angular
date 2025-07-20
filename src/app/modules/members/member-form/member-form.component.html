@@ -1,0 +1,240 @@
+<div class="p-3">
+    <h1 class="text-3xl dark:text-white p-3">@if(this.formMode == 'new'){ Add Member } @else { Update Member }</h1>
+    <div class="card card-body m-3 p-5">
+        <div class="block sm:grid lg:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Main Member -->
+            <div>
+                <label for="main_member" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Main
+                    Member</label>
+                <select #main_member id="main_member" class="form-input" placeholder="First Name"
+                    [(ngModel)]="member.mainMemberId" name="mainMemberId">
+                    <option value="" disabled selected>Select an option</option>
+                </select>
+            </div>
+            <!-- Parent Member -->
+            <div>
+                <label for="parent_member" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Parent
+                    Member</label>
+                <select #parent_member id="parent_member" class="form-input" placeholder="First Name"
+                    [(ngModel)]="member.parentId" name="parentId">
+                    <option value="" disabled selected>Select an option</option>
+                </select>
+            </div>
+            <!-- First Name -->
+            <div>
+                <label for="member_fname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                    Name</label>
+                <input type="text" id="member_fname" class="form-input" placeholder="First Name"
+                    [(ngModel)]="member.memberFname" name="memberFname" />
+            </div>
+            <!-- Middle Name -->
+            <div>
+                <label for="member_mname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Middle
+                    Name</label>
+                <input type="text" id="member_mname" class="form-input" placeholder="Middle Name"
+                    [(ngModel)]="member.memberMname" name="memberMname" />
+            </div>
+            <!-- Last Name -->
+            <div>
+                <label for="member_lname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                <input type="text" id="member_lname" class="form-input" placeholder="Last Name" [(ngModel)]="member.memberLname"
+                    name="memberLname" />
+            </div>
+            <!-- Gotra -->
+            <div>
+                <label for="member_gotra" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gotra</label>
+                <select id="member_gotra" class="form-input" name="memberGotra" [(ngModel)]="member.memberGotra">
+                    @if(gotraList.length > 0) {
+                    @for (gotra of gotraList; track $index) {
+                    <option value="{{gotra}}">{{gotra}}</option>
+                    }
+                    } @else {
+                    <option value="">No Gotra Found</option>
+                    }
+                </select>
+            </div>
+            <!-- Native Place -->
+            <div>
+                <label for="member_native" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Native
+                    Place</label>
+                <select id="member_native" class="form-input" name="memberNative" [(ngModel)]="member.memberNative">
+                    @if(nativeList.length > 0) {
+                    @for (native of nativeList; track $index) {
+                    <option value="{{native}}">{{native}}</option>
+                    }
+                    } @else {
+                    <option value="">No Native Found</option>
+                    }
+                </select>
+            </div>
+            <!-- Phone Number -->
+            <div>
+                <label for="member_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone No</label>
+                <input type="text" id="member_phone" class="form-input" placeholder="Phone Number"
+                    [(ngModel)]="member.memberPhone" name="memberPhone" />
+            </div>
+            <!-- Marital Status -->
+            <div>
+                <label for="maritial_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marital
+                    Status</label>
+                <select id="maritial_status" class="form-input" [(ngModel)]="member.maritialStatus" name="maritialStatus">
+                    <option value="">Select Marital Status</option>
+                    <option value="0">Single</option>
+                    <option value="1">Engaged</option>
+                    <option value="2">Married</option>
+                </select>
+            </div>
+            <!-- Spouse Name -->
+            <div [ngClass]="{'hidden': member.maritialStatus <= 0, 'block': member.maritialStatus > 0}">
+                <label for="spouse_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Spouse</label>
+                <select #spouse_id id="spouse_id" class="form-input" placeholder="Spouse_id" [(ngModel)]="member.spouseId"
+                    name="spouseId">
+                    <option value="" disabled selected>Select an option</option>
+                </select>
+            </div>
+
+            <!-- Engagement Date -->
+            <div [ngClass]="{'hidden': member.maritialStatus <= 0, 'block': member.maritialStatus > 0}">
+                <label for="engagement_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Engagement
+                    Date</label>
+                <input type="date" id="engagement_date" class="form-input" placeholder="Engagement Date"
+                    [(ngModel)]="member.engagementDate" name="engagementDate" />
+            </div>
+            @if(member.maritialStatus > 1){
+            <!-- Marriage Date -->
+            <div>
+                <label for="marriage_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marriage
+                    Date</label>
+                <input type="date" id="marriage_date" class="form-input" placeholder="Marriage Date"
+                    [(ngModel)]="member.marraigeDate" name="marriageDate" />
+            </div>
+            }
+            <!-- Qualification -->
+            <div>
+                <label for="member_qualification"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qualification</label>
+                <input type="text" id="member_qualification" class="form-input" placeholder="Qualification"
+                    [(ngModel)]="member.memberQualification" name="memberQualification" />
+            </div>
+            <!-- Blood Group -->
+            <div>
+                <label for="blood_group" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blood
+                    Group</label>
+                <select id="blood_group" class="form-input" [(ngModel)]="member.bloodGroup" name="bloodGroup">
+                    <option value="">Select Blood Group</option>
+                    @if(bloodGroupList.length > 0) {
+                        @for (bloodGroup of bloodGroupList; track $index) {
+                            <option value="{{bloodGroup.bloodGroup}}">{{bloodGroup.bloodGroup}}</option>
+                        }
+                    }
+                </select>
+            </div>
+            <!-- Zone -->
+            <div>
+                <label for="zone_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zone</label>
+                <select id="zone_id" class="form-input" [(ngModel)]="member.zoneId" name="zoneId">
+                    <option value="">Select Zone</option>
+                    @if(zoneList.length > 0) {
+                        @for (zone of zoneList; track $index) {
+                            <option value="{{zone.zoneId}}">{{zone.zoneName}}</option>
+                        }
+                    }
+                </select>
+            </div>
+            <!-- City -->
+            <div>
+                <label for="city_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                <select id="member_city" class="form-input" name="memberCity" [(ngModel)]="member.cityName">
+                    @if(cityList.length > 0) {
+                    @for (city of cityList; track $index) {
+                    <option value="{{city}}">{{city}}</option>
+                    }
+                    } @else {
+                    <option value="">No City Found</option>
+                    }
+                </select>
+            </div>
+            <!-- State -->
+            <div>
+                <label for="state_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+                <select id="member_state" class="form-input" name="memberState" [(ngModel)]="member.stateName">
+                    @if(stateList.length > 0) {
+                    @for (state of stateList; track $index) {
+                    <option value="{{state}}">{{state}}</option>
+                    }
+                    } @else {
+                    <option value="">No State Found</option>
+                    }
+                </select>
+            </div>
+            <!-- Country -->
+            <div>
+                <label for="country_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                <select id="member_country" class="form-input" name="memberCountry" [(ngModel)]="member.countryName">
+                    @if(countryList.length > 0) {
+                    @for (country of countryList; track $index) {
+                    <option value="{{country}}">{{country}}</option>
+                    }
+                    } @else {
+                    <option value="">No Country Found</option>
+                    }
+                </select>
+            </div>
+            <!-- Address -->
+            <div class="col-span-2">
+                <label for="member_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                <textarea id="member_address" class="form-input" placeholder="Address" [(ngModel)]="member.memberAddress"
+                    name="memberAddress"></textarea>
+            </div>
+            <!-- Postal Code -->
+            <div>
+                <label for="postal_code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Postal
+                    Code</label>
+                <input type="text" id="postal_code" class="form-input" placeholder="Postal Code" [(ngModel)]="member.postalCode"
+                    name="postalCode" />
+            </div>
+            <!-- Date of Birth -->
+            <div>
+                <label for="member_dob" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date of
+                    Birth</label>
+                <input type="date" id="member_dob" class="form-input" placeholder="Date of Birth" [(ngModel)]="member.memberDob"
+                    name="memberDob" />
+            </div>
+            <!-- Gender -->
+            <div>
+                <label for="member_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                <select id="member_gender" class="form-input" [(ngModel)]="member.memberGender" name="memberGender">
+                    <option value="">Select Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+            <!-- Life Status -->
+            <div>
+                <label for="alive_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Life
+                    Status</label>
+                <select id="alive_status" class="form-input" [(ngModel)]="member.aliveStatus" name="aliveStatus">
+                    <option value="">Select Member Life Status</option>
+                    <option value="0">હયાત</option>
+                    <option value="-1">અક્ષરવાસી</option>
+                </select>
+            </div>
+            @if(member.aliveStatus == '-1'){
+            <!-- Demise Date -->
+            <div>
+                <label for="demise_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Demise
+                    Date</label>
+                <input type="date" id="demise_date" class="form-input" placeholder="Demise Date" [(ngModel)]="member.deathDate"
+                    name="demiseDate" />
+            </div>
+            }
+        </div>
+        <div class="flex justify-end mt-4">
+            <button type="submit"
+                class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800"
+                (click)="submitMemberForm()">
+                <i class="fa fa-user-edit"></i> @if(this.formMode == 'new'){ Add Member } @else { Update Member }
+            </button>
+        </div>
+    </div>
+</div>

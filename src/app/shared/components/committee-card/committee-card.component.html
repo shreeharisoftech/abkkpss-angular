@@ -1,0 +1,22 @@
+<div class="card flex flex-col items-center p-5 lg:py-10" [routerLink]="redirectUrl">
+    <div class="mb-3.5">
+        <div class="size-20 relative">
+            <img class="rounded-full" [src]="profileImageUrl">
+        </div>
+    </div>
+    @if(showDesignation) {
+        <div class="flex items-center justify-center gap-1.5 mb-2">
+            <span class="text-gray-700 text-sm font-normal">
+                {{ designation }}
+            </span>
+        </div>
+    }
+    <div class="flex items-center justify-center gap-1.5 mb-2">
+        <span class="leading-5 text-gray-900 font-medium text-1.5xl text-center">
+            {{ name }}
+        </span>
+    </div>
+    <span class="text-red-500 font-normal">
+        {{ city }}
+    </span>
+</div>

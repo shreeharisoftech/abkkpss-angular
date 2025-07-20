@@ -1,0 +1,69 @@
+@if(redirectUrl != null && redirectUrl != undefined && redirectUrl != '') {
+    <a [routerLink]="redirectUrl">
+        <div class="w-full p-2 rounded-lg shadow sm:p-3 card">
+            <div class="flow-root">
+                <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img 
+                                    class="w-10 h-10 rounded-full border-2" 
+                                    [ngClass]="appService.getMemberShabiyaPadColorClass(this.isLifeTime, this.memberType)" 
+                                    src="{{memberImageUrl}}" 
+                                    alt="Neil image">
+                            </div>
+                            <div class="flex-1 min-w-0 ms-4">
+                                <p class="text-sm font-medium text-gray-800 truncate dark:text-gray-800 break-words">
+                                    {{title}}
+                                </p>
+                                @if(cardType === 'member') {
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-600 break-words">
+                                        native: <b>{{memberNative}}</b> &nbsp;&nbsp;&nbsp;current: <b>{{memberCurrent}}</b>
+                                    </p>
+                                }@else{
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-600 break-words">
+                                        city: <b>{{city}}</b>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </a>
+} @else {
+    <a>
+        <div class="w-full p-2 rounded-lg shadow sm:p-3 card">
+            <div class="flow-root">
+                <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img 
+                                    class="w-10 h-10 rounded-full border-2" 
+                                    [ngClass]="appService.getMemberShabiyaPadColorClass(this.isLifeTime, this.memberType)" 
+                                    src="{{memberImageUrl}}" 
+                                    alt="Neil image">
+                            </div>
+                            <div class="flex-1 min-w-0 ms-4">
+                                <p class="text-sm font-medium text-gray-800 truncate dark:text-gray-800 break-words">
+                                    {{title}}
+                                </p>
+                                @if(cardType === 'member') {
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-600 break-words">
+                                        native: <b>{{memberNative}}</b> &nbsp;&nbsp;&nbsp;current: <b>{{memberCurrent}}</b>
+                                    </p>
+                                }@else{
+                                    <p class="text-sm text-gray-500 truncate dark:text-gray-600 break-words">
+                                        city: <b>{{city}}</b>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </a>
+}

@@ -15,7 +15,7 @@ import { ApiUrls } from '../../../core/configs/api-urls';
     CommonModule,
     HeaderMenuItemComponent,
     RouterLink
-  ],
+],
 	templateUrl: './page-header.component.html',
 	styleUrl: './page-header.component.scss'
 })
@@ -53,6 +53,7 @@ export class PageHeaderComponent extends AppBaseComponent {
 	}
 
 	async logOutUser(){
+		this.appService.closeProfileDialog();
 		let response:any = await SimpleHttp.postPromise({url:ApiUrls.logout});
 		if(response["status"] == "success"){
 			sessionStorage.removeItem('user');
@@ -67,6 +68,6 @@ export class PageHeaderComponent extends AppBaseComponent {
 
 	getMemberProfileRibbon(){
 		let member = JSON.parse(sessionStorage.getItem('member') || '{}');
-		return this.appService.getMemberRibbonClass(member[ViewMemberDetails.isLifetime], member[ViewMemberDetails.memberType]);
+		return this.appService.getMemberShabiyaPadColorClass(member[ViewMemberDetails.isLifetime], member[ViewMemberDetails.memberType]);
 	}
 }

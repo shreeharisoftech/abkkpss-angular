@@ -53,5 +53,12 @@ export const routes: Routes = [
         (m) => m.ZoneAdminModule
       ),
   },
+  {
+    path: 'governing-body',
+    loadChildren: () =>
+      import('./modules/governing-body/governing-body.module').then(
+        (m) => m.GoverningBodyModule
+      ),
+  },
 ];
 

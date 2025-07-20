@@ -49,3 +49,22 @@ export class Member {
     memberType: string;
     mainId: number;
 }
+
+export class Firm {
+    firmId: number;
+    firmName: string;
+    firmDescription: string;
+    firmAddress: string;
+    firmZoneId: number;
+    firmCity: string;
+    firmState: string;
+    firmCountry: string;
+    firmPostalCode: string;
+    firmPhone: string;
+    firmEmail: string;
+    firmWebsite: string;
+    firmContactPerson: string;
+    firmContactPersonPhone: string;
+    firmContactPersonEmail: string;
+    memberId: number;
+}

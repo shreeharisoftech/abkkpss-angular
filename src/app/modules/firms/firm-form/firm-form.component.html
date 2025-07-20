@@ -1,0 +1,134 @@
+<div class="p-3">
+    <h1 class="text-3xl dark:text-white p-3">@if(this.formMode == 'new'){ Add Firm } @else { Update Firm }</h1>
+    <div class="card card-body m-3 p-5">
+        <div class="block sm:grid lg:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Firm Name -->
+            <div class="col-span-3">
+                <label for="firm_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Firm Name</label>
+                <input type="text" id="firm_name" class="form-input" placeholder="Firm Name"
+                    [(ngModel)]="firm.firmName" name="firmName" />
+            </div>
+            <!-- Description Name -->
+            <div class="col-span-3">
+                <label for="firm_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                <input type="text" id="firm_description" class="form-input" placeholder="Description"
+                    [(ngModel)]="firm.firmDescription" name="firmDescription" />
+            </div>
+            <!-- Phone -->
+            <div>
+                <label for="firm_phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                <input type="text" id="firm_phone" class="form-input" placeholder="Phone" [(ngModel)]="firm.firmPhone"
+                    name="firmPhone" />
+            </div>
+            <!-- Email -->
+            <div>
+                <label for="firm_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="email" id="firm_email" class="form-input" placeholder="Email" [(ngModel)]="firm.firmEmail"
+                    name="firmEmail" />
+            </div>
+            <!-- Website -->
+            <div>
+                <label for="firm_website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website</label>
+                <input type="url" id="firm_website" class="form-input" placeholder="Website" [(ngModel)]="firm.firmWebsite"
+                    name="firmWebsite" />
+            </div>
+            <!-- Zone -->
+            <div>
+                <label for="zone_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zone</label>
+                <select id="zone_id" class="form-input" [(ngModel)]="firm.firmZoneId" name="zoneId">
+                    <option value="">Select Zone</option>
+                    @if(zoneList.length > 0) {
+                        @for (zone of zoneList; track $index) {
+                            <option value="{{zone.zoneId}}">{{zone.zoneName}}</option>
+                        }
+                    }
+                </select>
+            </div>
+            <!-- Address -->
+            <div class="col-span-2">
+                <label for="firm_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                <textarea id="firm_address" class="form-input" placeholder="Address" [(ngModel)]="firm.firmAddress"
+                    name="firmAddress"></textarea>
+            </div>
+            <!-- City -->
+            <div>
+                <label for="city_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                <select id="firm_city" class="form-input" name="firmCity" [(ngModel)]="firm.firmCity">
+                    @if(cityList.length > 0) {
+                    @for (city of cityList; track $index) {
+                    <option value="{{city}}">{{city}}</option>
+                    }
+                    } @else {
+                    <option value="">No City Found</option>
+                    }
+                </select>
+            </div>
+            <!-- State -->
+            <div>
+                <label for="state_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
+                <select id="firm_state" class="form-input" name="firmState" [(ngModel)]="firm.firmState">
+                    @if(stateList.length > 0) {
+                        @for (state of stateList; track $index) {
+                            <option value="{{state}}">{{state}}</option>
+                        }
+                    } @else {
+                        <option value="">No State Found</option>
+                    }
+                </select>
+            </div>
+            <!-- Country -->
+            <div>
+                <label for="country_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                <select id="firm_country" class="form-input" name="firmCountry" [(ngModel)]="firm.firmCountry">
+                    @if(countryList.length > 0) {
+                        @for (country of countryList; track $index) {
+                            <option value="{{country}}">{{country}}</option>
+                        }
+                    } @else {
+                        <option value="">No Country Found</option>
+                    }
+                </select>
+            </div>
+            <!-- Postal Code -->
+            <div>
+                <label for="postal_code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Postal
+                    Code</label>
+                <input type="text" id="postal_code" class="form-input" placeholder="Postal Code" [(ngModel)]="firm.firmPostalCode"
+                    name="postalCode" />
+            </div>
+
+            <div class="col-span-2"></div>
+
+
+            <div class="mt-5 col-span-3">
+                <div class="mb-5">
+                    <h1 class="text-gray-900 dark:text-white font-weight-bold">Firm Members</h1>
+                    <select #firm_member id="firm_member" class="form-input" placeholder="Firm Member Name"
+                        [(ngModel)]="firm.memberId" name="firmMemberId"
+                        (change)="onFirmMemberSelected()">
+                        <option value="" disabled selected>Select an option</option>
+                    </select>
+                </div>
+                @for(member of this.firmMemberDetails; track $index) {
+                    <div class="inline-block">
+                        <div class="flex items-center mb-2">
+                            <app-list-card [memberImageUrl]="getProfilePicPath(member[ViewMemberDetails.memberProfilePic], member[ViewMemberDetails.memberGender])" [title]="member[ViewMemberDetails.memberName]" [memberNative]="member[ViewMemberDetails.memberNative]"
+                                [memberCurrent]="member[ViewMemberDetails.cityName]" [redirectUrl]="" [isLifeTime]="member[ViewMemberDetails.isLifetime]" [memberType]="member[ViewMemberDetails.memberType]" class="w-96">
+                            </app-list-card>
+                            <button type="button" class="block text-white bg-red-500 hover:bg-white hover:text-red-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800 mx-3" (click)="removeFirmMember($index)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="flex justify-end mt-4">
+            <button type="submit"
+                class="block text-white bg-blue-700 hover:bg-white hover:text-blue-500 focus:ring-4 focus:outline-none focus:ring-primary-300 transition-colors duration-300 ease-in-out font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-800"
+                (click)="submitFirmForm()">
+                <i class="fa fa-user-edit"></i> @if(this.formMode == 'new'){ Add Firm } @else { Update Firm }
+            </button>
+        </div>
+    </div>
+</div>

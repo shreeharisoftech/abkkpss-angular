@@ -6,17 +6,17 @@ import { AppBaseComponent } from '../../base-parents/app-base/app-base.component
 import { SimplifyService } from '@satvasoftech/simplify-angular';
 
 @Component({
-  selector: 'app-memberlist-card',
+  selector: 'app-list-card',
   imports: [
     RouterModule,
     CommonModule
   ],
-  templateUrl: './memberlist-card.component.html',
-  styleUrl: './memberlist-card.component.scss'
+  templateUrl: './list-card.component.html',
+  styleUrl: './list-card.component.scss'
 })
-export class MemberlistCardComponent extends AppBaseComponent {
+export class ListCardComponent extends AppBaseComponent {
   @Input()
-  memberName? = "";
+  title? = "";
 
   @Input()
   memberNative? = "";
@@ -35,6 +35,12 @@ export class MemberlistCardComponent extends AppBaseComponent {
 
   @Input()
   memberType? = "";
+
+  @Input()
+  cardType: 'member' | 'firm' = 'member';
+
+  @Input()
+  city?: string;
 
   constructor(elementRef: ElementRef, simplify: SimplifyService, appService: AppService) {
     super(elementRef, simplify, appService);
